@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 
 namespace ASTools.Models
 {
-    public class NavigationItemModel : INotifyPropertyChanged
+    public class FloaderModel : INotifyPropertyChanged
     {
         private string _title = "";
         private ImageSource _icon;
@@ -47,7 +47,7 @@ namespace ASTools.Models
         }
 
 
-        public NavigationItemModel(ObservableCollection<ComponentModel> floaderTools, string floaderIcon, string floaderTitle)
+        public FloaderModel(ObservableCollection<ComponentModel> floaderTools, string floaderIcon, string floaderTitle)
         {
             try
             {

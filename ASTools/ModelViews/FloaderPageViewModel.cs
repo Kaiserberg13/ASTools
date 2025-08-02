@@ -11,10 +11,10 @@ namespace ASTools.ModelViews
     public class FloaderPageViewModel : BaseViewModel
     {
         private string _title;
-        private FloaderItem _selectedItem;
-        private ObservableCollection<FloaderItem> _items;
+        private FilterModel _selectedItem;
+        private ObservableCollection<FilterModel> _items;
 
-        public FloaderItem SelectedItem
+        public FilterModel SelectedItem
         {
             get => _selectedItem;
             set
@@ -23,7 +23,7 @@ namespace ASTools.ModelViews
                 OnPropertyChanged("SelectedItem");
             }
         }
-        public ObservableCollection<FloaderItem> Items
+        public ObservableCollection<FilterModel> Items
         {
             get => _items;
             set
@@ -48,9 +48,9 @@ namespace ASTools.ModelViews
 
             try
             {
-                Items = new ObservableCollection<FloaderItem>
+                Items = new ObservableCollection<FilterModel>
                 {
-                    new FloaderItem
+                    new FilterModel
                     {
                         Header = "All",
                         Content = tools
@@ -63,7 +63,7 @@ namespace ASTools.ModelViews
 
                 foreach (var tool in filter)
                 {
-                    Items.Add(new FloaderItem
+                    Items.Add(new FilterModel
                     {
                         Header = tool.Key,
                         Content = new ObservableCollection<ComponentModel>(tool.Select(x => x.tool))

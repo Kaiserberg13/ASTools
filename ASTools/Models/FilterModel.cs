@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace ASTools.Models
 {
-    public class FloaderItem : INotifyPropertyChanged
+    public class FilterModel : INotifyPropertyChanged
     {
         private string _header;
         private ObservableCollection<ComponentModel> _content;

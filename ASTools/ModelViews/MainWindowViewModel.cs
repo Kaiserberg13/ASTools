@@ -17,8 +17,8 @@ namespace ASTools.ModelViews
 
     public class MainWindowViewModel : WindowViewModel
     {
-        public ObservableCollection<NavigationItemModel> NavigationItems { get; set; }
-        private NavigationItemModel _selectedItem;
+        public ObservableCollection<FloaderModel> FloaderItems { get; set; }
+        private FloaderModel _selectedItem;
         private object _currentPageViewModel;
         public object CurrentPageViewModel
         {
@@ -30,7 +30,7 @@ namespace ASTools.ModelViews
             }
         }
 
-        public NavigationItemModel SelectedItem
+        public FloaderModel SelectedItem
         {
             get => _selectedItem;
             set
@@ -57,17 +57,17 @@ namespace ASTools.ModelViews
                         tool.Key))
                     .ToList();
 
-                NavigationItems = new ObservableCollection<NavigationItemModel>(
+                FloaderItems = new ObservableCollection<FloaderModel>(
                     allFloaders.Select(floader =>
-                        new NavigationItemModel(
+                        new FloaderModel(
                             new ObservableCollection<ComponentModel>(
                                 toolsModels.Where(tool => floader.Tools.Contains(tool.ToolKey))),
                             floader.Icon,
                             floader.Name))
                 );
 
-                if (NavigationItems.Any())
-                    SelectedItem = NavigationItems.First();
+                if (FloaderItems.Any())
+                    SelectedItem = FloaderItems.First();
             } catch (Exception ex)
             {
                 MessageBox.Show("Error initializing UI: " + ex.Message, "Sturtup critical error", MessageBoxButton.OK, MessageBoxImage.Error);
