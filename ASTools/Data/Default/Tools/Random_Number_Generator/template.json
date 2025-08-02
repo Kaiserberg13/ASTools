@@ -1,0 +1,44 @@
+[
+  {
+    "category_text": "Утилиты"
+  },
+  {
+    "type": "str",
+    "name": "Uuui",
+    "text": "Хуйня",
+    "file_path": true
+  },
+  {
+    "type": "int",
+    "name": "Uuui",
+    "text": "ВВедите просто число хз"
+  },
+  {
+    "category_text": "Бул переменные"
+  },
+  {
+    "type": "bool",
+    "name": "Unlimited",
+    "text": "Без ограничений?"
+  },
+  {
+    "type": "bool",
+    "name": "Unlimited2",
+    "text": "Без ограничений2?"
+  },
+  {
+    "category_text": "Переменные"
+  },
+  {
+    "type": "int",
+    "name": "MinNum",
+    "text": "Минимальное число",
+    "condition": "Unlimited == False"
+  },
+  {
+    "type": "int",
+    "name": "MaxNum",
+    "text": "Максимальное число",
+    "condition": "Unlimited == False"
+  }
+]

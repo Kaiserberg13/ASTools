@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\Country creator.png" />
+      <None Remove="Assets\DefaultIcon.png" />
+      <None Remove="Assets\Icons\Home.png" />
+      <None Remove="Assets\Logo80x80.png" />
+      <None Remove="Assets\MapGen Fix.png" />
+      <None Remove="Assets\Sprite sheet to video.png" />
+      <None Remove="Assets\States manager.png" />
+      <None Remove="Assets\Video to spirte sheet.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Assets\Icons\home.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Data\Default\Guides\" />
+    </ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Data\**\*" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+      <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Assets\Country creator.png" />
+      <Resource Include="Assets\DefaultIcon.png" />
+      <Resource Include="Assets\Logo80x80.png" />
+      <Resource Include="Assets\MapGen Fix.png" />
+      <Resource Include="Assets\Sprite sheet to video.png" />
+      <Resource Include="Assets\States manager.png" />
+      <Resource Include="Assets\Video to spirte sheet.png" />
+    </ItemGroup>
+
+</Project>

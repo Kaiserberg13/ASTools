@@ -1,0 +1,114 @@
+﻿<Window x:Class="ASTools.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ASTools.View"
+        xmlns:views="clr-namespace:ASTools.Pages"
+        xmlns:vm="clr-namespace:ASTools.ModelViews"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="670" Width="1200"
+        MinHeight="570" MinWidth="750"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Icon="/Assets/Logo80x80.png"
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <Border Background="{StaticResource PrimaryColor}"
+                                CornerRadius="{Binding WindowCornerRadius}"
+                                BorderBrush="{StaticResource OutlineColor}"
+                                BorderThickness="{Binding ResizeBorderThickness}"
+                                Padding="{Binding ResizeBorderThickness}"
+                                >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <DockPanel Panel.ZIndex="1">
+                                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="16, 12">
+                                        <Image Source="/Assets/Logo80x80.png" Width="20" Height="20"/>
+                                        <TextBlock Margin="16,0,5,0" VerticalAlignment="Center" >ASTool</TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                        <Button WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding WarpCommand}" Style="{StaticResource SystemButton}">_</Button>
+                                        <Button WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding MinMaxWinSizeCommand}" Style="{StaticResource SystemButton}">□</Button>
+                                        <Button WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding CloseCommand}" Style="{StaticResource SystemButtonClose}">X</Button>
+                                    </StackPanel>
+
+                                    <TextBox Height="30" MinWidth="200" MaxWidth="500" WindowChrome.IsHitTestVisibleInChrome="True"/>
+                                </DockPanel>
+
+                                <ContentPresenter
+                                    Grid.Row="1"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Margin="0"/>
+                            </Grid>
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <DataTemplate DataType="{x:Type vm:FloaderPageViewModel}">
+            <views:FloaderView DataContext="{Binding}" />
+        </DataTemplate>
+    </Window.Resources>
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="{Binding TitleHight}"
+            GlassFrameThickness="0"
+            />
+    </WindowChrome.WindowChrome>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListBox ItemsSource="{Binding NavigationItems}"
+                 SelectedItem="{Binding SelectedItem}"
+                 BorderThickness="0"
+                 Background="Transparent"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Image Source="{Binding Icon}" Stretch="Fill" Height="24" Width="24" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Title}" HorizontalAlignment="Center" Foreground="{StaticResource TextColor}" TextAlignment="Center" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource NavigationItem}"/>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <StackPanel Grid.Row="1">
+            <Button Style="{StaticResource NavigationButton}">Add Floader</Button>
+            <Button Style="{StaticResource NavigationButton}">Add Code</Button>
+            <Button Style="{StaticResource NavigationButton}">Support us</Button>
+            <Button Style="{StaticResource NavigationButton}">Settings</Button>
+        </StackPanel>
+        <ContentControl
+            Grid.Column="1"
+            Grid.RowSpan="2"
+            Content="{Binding CurrentPageViewModel}" />
+    </Grid>
+</Window>
