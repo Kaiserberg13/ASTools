@@ -24,7 +24,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\Default\Guides\" />
+      <Folder Include="Data\Guides\" />
+      <Folder Include="Data\Themes\" />
     </ItemGroup>
 
 	<ItemGroup>

@@ -44,11 +44,12 @@ namespace ASTools.ModelViews
         public MainWindowViewModel(Window window) : base(window)
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            var config = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.Combine(baseDir, "Data", "Config", "App.settings.json")));
 
             try
             {
-                var allTools = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.Combine(baseDir, "Data", "Tools.json")));
-                var allFloaders = JsonSerializer.Deserialize<List<FloaderInfo>>(File.ReadAllText(Path.Combine(baseDir, "Data", "FloadersData.json")));
+                var allTools = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.Combine(baseDir, config["toolsJson"])));
+                var allFloaders = JsonSerializer.Deserialize<List<FloaderInfo>>(File.ReadAllText(Path.Combine(baseDir, config["foldersJson"])));
 
                 var toolsModels = allTools
                     .Where(tool => Directory.Exists(Path.Combine(baseDir, tool.Value)) || Directory.Exists(tool.Value))

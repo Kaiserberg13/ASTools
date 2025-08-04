@@ -26,6 +26,7 @@
                                 BorderBrush="{StaticResource OutlineColor}"
                                 BorderThickness="{Binding ResizeBorderThickness}"
                                 Padding="{Binding ResizeBorderThickness}"
+                                Margin="{Binding TaskBarMarginThickness}"
                                 >
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -73,7 +74,7 @@
             />
     </WindowChrome.WindowChrome>
 
-    <Grid>
+    <Grid Margin="{Binding TaskBarThickness}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="*"/>
@@ -82,7 +83,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListBox ItemsSource="{Binding NavigationItems}"
+        <ListBox ItemsSource="{Binding FloaderItems}"
                  SelectedItem="{Binding SelectedItem}"
                  BorderThickness="0"
                  Background="Transparent"
@@ -106,9 +107,8 @@
             <Button Style="{StaticResource NavigationButton}">Support us</Button>
             <Button Style="{StaticResource NavigationButton}">Settings</Button>
         </StackPanel>
-        <ContentControl
-            Grid.Column="1"
-            Grid.RowSpan="2"
-            Content="{Binding CurrentPageViewModel}" />
+        <Border Grid.Column="1" Grid.RowSpan="2" Background="{StaticResource BackgroundColor}" CornerRadius="8,0,0,0">
+            <ContentControl Content="{Binding CurrentPageViewModel}" />
+        </Border>
     </Grid>
 </Window>

@@ -1,0 +1,8 @@
+{
+  "toolsDir": "Data/Tools",
+  "toolsJson": "Data/Config/Tools.json",
+  "foldersJson": "Data/Config/FoldersData.json",
+  "guidesDir": "Data/Guides",
+  "theme": "light",
+  "themeDir": "Data/Themes"
+}
