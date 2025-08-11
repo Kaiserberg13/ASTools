@@ -47,7 +47,7 @@ namespace ASTools.ModelViews
             {
                 SetProperty(ref _selectedLang, value);
                 isLangChange = true;
-                isLangChange = true;
+                IsChanged = true;
             }
         }
 
