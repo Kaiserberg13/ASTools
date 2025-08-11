@@ -1,102 +1,74 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Windows;
 using System.Windows.Input;
 
 namespace ASTools.ModelViews
 {
-    public class WindowViewModel : BaseViewModel
+    public partial class WindowViewModel : ObservableObject
     {
         #region Private Member
-
         private Window mWindow;
-
         private int mOuterMarginSize = 8;
         private int mWindowRadius = 8;
         private Thickness mTaskBarSize;
-
         #endregion
 
         #region Public Propertis
 
-        public int ResizeBorder { get; set; } = 4;
-        public Thickness ResizeBorderThickness
-        {
-            get { return new Thickness(ResizeBorder); }
-        }
+        [ObservableProperty]
+        public int resizeBorder = 4;
+
+        public Thickness ResizeBorderThickness => new Thickness(ResizeBorder);
         public int OuutherMarginSize
         {
-            get { return mWindow.WindowState == WindowState.Maximized ? 0 : mOuterMarginSize; }
-            set { mOuterMarginSize = value; }
+            get => mWindow.WindowState == WindowState.Maximized ? 0 : mOuterMarginSize;
+            set => SetProperty(ref mOuterMarginSize, value);
         }
-        public Thickness OuutherMarginSizeThickness
-        {
-            get { return new Thickness(OuutherMarginSize); }
-        }
+        public Thickness OuutherMarginSizeThickness => new Thickness(OuutherMarginSize);
+
         public int WindowRadius
         {
-            get { return mWindow.WindowState == WindowState.Maximized ? 0 : mWindowRadius; }
-            set { mWindowRadius = value; }
+            get => mWindow.WindowState == WindowState.Maximized ? 0 : mWindowRadius;
+            set => SetProperty(ref mWindowRadius, value);
         }
         public CornerRadius WindowCornerRadius
         {
             get { return new CornerRadius(mWindowRadius); }
         }
-        public int TitleHight { get; set; } = 44;
+
+        [ObservableProperty]
+        public int titleHight = 44;
+
         public Thickness TaskBarThickness
         {
-            get { return mWindow.WindowState != WindowState.Maximized ? new Thickness(0) : mTaskBarSize; }
-            set { mTaskBarSize = value; }
+            get => mWindow.WindowState != WindowState.Maximized ? new Thickness(0) : mTaskBarSize;
+            set => SetProperty(ref mTaskBarSize, value); 
         }
+        protected Window CurrentWindow => mWindow;
+
 
         #endregion
 
         #region Commands
-        private RelayCommand _minMaxWinSizeCommand;
-        public RelayCommand MinMaxWinSizeCommand
+        [RelayCommand]
+        private void MinMaxWinSize()
         {
-            get
-            {
-                return _minMaxWinSizeCommand ??
-                    (_minMaxWinSizeCommand = new RelayCommand(obj =>
-                    {
-                        if (mWindow.WindowState != WindowState.Normal)
-                        {
-                            mWindow.WindowState = WindowState.Normal;
-                        }
-                        else
-                        {
-                            mWindow.WindowState = WindowState.Maximized;
-                        }
-                    }));
-            }
+            mWindow.WindowState = mWindow.WindowState != WindowState.Normal ? WindowState.Normal : WindowState.Maximized;
         }
 
-        private RelayCommand _closeCommand;
-        public RelayCommand CloseCommand
+        [RelayCommand]
+        private void Close()
         {
-            get
-            {
-                return _closeCommand ??
-                    (_closeCommand = new RelayCommand(obj =>
-                    {
-                        mWindow.Close();
-                    }));
-            }
+            mWindow.Close();
         }
 
-        private RelayCommand _warpCommand;
-        public RelayCommand WarpCommand
+        [RelayCommand]
+        private void Warp()
         {
-            get
-            {
-                return _warpCommand ??
-                    (_warpCommand = new RelayCommand(obj =>
-                    {
-                        mWindow.WindowState = WindowState.Minimized;
-                    }));
-            }
+            mWindow.WindowState = WindowState.Minimized;
         }
-
         #endregion
 
         #region Constructor

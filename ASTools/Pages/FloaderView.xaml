@@ -12,10 +12,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <DockPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" DockPanel.Dock="Right">
+            <StackPanel Orientation="Horizontal" Margin="5,0" VerticalAlignment="Center" DockPanel.Dock="Right">
                 <RadioButton GroupName="View" Content="Таблица" IsChecked="True"/>
                 <RadioButton GroupName="View" Content="строка"/>
             </StackPanel>
+            <Button DockPanel.Dock="Right" Margin="5,0">Delete</Button>
+            <Button DockPanel.Dock="Right" Margin="5,0">Edit</Button>
             <TextBlock Text="{Binding Title}" FontSize="24" FontFamily="Segoe UI Variable Text Semibold"/>
         </DockPanel>
         <TabControl Style="{StaticResource FloaderControl}" 

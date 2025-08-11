@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="/Themes/TabControl.xaml" />
                 <ResourceDictionary Source="/Themes/Icons.xaml" />
                 <ResourceDictionary Source="/Themes/ListBox.xaml" />
+                <ResourceDictionary Source="/Themes/WindowStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

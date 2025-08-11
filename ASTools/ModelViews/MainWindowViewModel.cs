@@ -1,5 +1,10 @@
-﻿using ASTools.Models;
+﻿using ASTools.Messenger;
+using ASTools.Models;
 using ASTools.Pages;
+using ASTools.View;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
@@ -15,11 +20,18 @@ namespace ASTools.ModelViews
         public string[] Tools { get; set; }
     }
 
-    public class MainWindowViewModel : WindowViewModel
+    public partial class MainWindowViewModel : WindowViewModel, IRecipient<SettingsChangedMessage>
     {
-        public ObservableCollection<FloaderModel> FloaderItems { get; set; }
+
+        #region Private Member
         private FloaderModel _selectedItem;
         private object _currentPageViewModel;
+        #endregion
+
+        #region Public Properties
+        [ObservableProperty]
+        private ObservableCollection<FloaderModel> folderItems;
+
         public object CurrentPageViewModel
         {
             get => _currentPageViewModel;
@@ -40,40 +52,91 @@ namespace ASTools.ModelViews
                 OnPageChanged();
             }
         }
+        #endregion
 
+        #region Commands
+        [RelayCommand]
+        private void OpenSettings()
+        {
+            var settingsWindow = new Settings();
+            settingsWindow.Show();
+        }
+        #endregion
+
+        #region Constructor
         public MainWindowViewModel(Window window) : base(window)
         {
-            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var config = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.Combine(baseDir, "Data", "Config", "App.settings.json")));
+            WeakReferenceMessenger.Default.Register<SettingsChangedMessage>(this);
 
-            try
+            var loadingWindow = new LoadScreen();
+            loadingWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;  // Центр экрана
+            loadingWindow.Topmost = true;
+            loadingWindow.Show();
+
+            LoadData().ContinueWith(task =>
             {
-                var allTools = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.Combine(baseDir, config["toolsJson"])));
-                var allFloaders = JsonSerializer.Deserialize<List<FloaderInfo>>(File.ReadAllText(Path.Combine(baseDir, config["foldersJson"])));
+                Application.Current.Dispatcher.Invoke(() => loadingWindow.Close());
+            });
+        }
+        #endregion
 
-                var toolsModels = allTools
-                    .Where(tool => Directory.Exists(Path.Combine(baseDir, tool.Value)) || Directory.Exists(tool.Value))
-                    .Select(tool => new ComponentModel(
-                        Directory.Exists(tool.Value) ? tool.Value : Path.Combine(baseDir, tool.Value),
-                        tool.Key))
-                    .ToList();
-
-                FloaderItems = new ObservableCollection<FloaderModel>(
-                    allFloaders.Select(floader =>
-                        new FloaderModel(
-                            new ObservableCollection<ComponentModel>(
-                                toolsModels.Where(tool => floader.Tools.Contains(tool.ToolKey))),
-                            floader.Icon,
-                            floader.Name))
-                );
-
-                if (FloaderItems.Any())
-                    SelectedItem = FloaderItems.First();
-            } catch (Exception ex)
+        #region Messaging
+        public async void Receive(SettingsChangedMessage message)
+        {
+            if (message.Value)
             {
-                MessageBox.Show("Error initializing UI: " + ex.Message, "Sturtup critical error", MessageBoxButton.OK, MessageBoxImage.Error);
-                window.Close();
+                await LoadData();
+                OnPropertyChanged(nameof(FolderItems));
+                if(FolderItems.Any())
+                    SelectedItem = FolderItems.First();
             }
+        }
+        #endregion
+
+        #region Functions
+        private async Task LoadData()
+        {
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+            Dictionary<string, string> config = null;
+            List<FloaderInfo> allFolders = null;
+            Dictionary<string, string> allTools = null;
+
+            await Task.Run(() =>
+            {
+                config = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.Combine(baseDir, "Data", "Config", "App.settings.json")));
+
+                allTools = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.Combine(baseDir, config["toolsJson"])));
+                allFolders = JsonSerializer.Deserialize<List<FloaderInfo>>(File.ReadAllText(Path.Combine(baseDir, config["foldersJson"])));
+            });
+
+            await Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                try
+                {
+                    var toolsModels = allTools
+                        .Where(tool => Directory.Exists(Path.Combine(baseDir, tool.Value)) || Directory.Exists(tool.Value))
+                        .Select(tool => new ComponentModel(
+                            Directory.Exists(tool.Value) ? tool.Value : Path.Combine(baseDir, tool.Value),
+                            tool.Key))
+                        .ToList();
+
+                    FolderItems = new ObservableCollection<FloaderModel>(
+                        allFolders.Select(folder =>
+                            new FloaderModel(
+                                new ObservableCollection<ComponentModel>(
+                                    toolsModels.Where(tool => folder.Tools.Contains(tool.ToolKey))),
+                                folder.Icon,
+                                folder.Name)));
+
+                    if (FolderItems.Any())
+                        SelectedItem = FolderItems.First();
+                } catch (Exception ex)
+                {
+                    MessageBox.Show("Error initializing UI: " + ex.Message, "Startup critical error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    CurrentWindow.Close();
+                }
+            });
         }
 
         private void OnPageChanged()
@@ -81,5 +144,6 @@ namespace ASTools.ModelViews
             if (SelectedItem != null)
                 CurrentPageViewModel = SelectedItem.PageViewModel;
         }
+        #endregion
     }
 }

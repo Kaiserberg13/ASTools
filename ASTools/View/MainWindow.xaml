@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:ASTools.Pages"
         xmlns:vm="clr-namespace:ASTools.ModelViews"
         mc:Ignorable="d"
-        Title="MainWindow" Height="670" Width="1200"
+        Title="ASTools" Height="670" Width="1200"
         MinHeight="570" MinWidth="750"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -17,50 +17,6 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <Style TargetType="{x:Type local:MainWindow}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Window}">
-                        <Border Background="{StaticResource PrimaryColor}"
-                                CornerRadius="{Binding WindowCornerRadius}"
-                                BorderBrush="{StaticResource OutlineColor}"
-                                BorderThickness="{Binding ResizeBorderThickness}"
-                                Padding="{Binding ResizeBorderThickness}"
-                                Margin="{Binding TaskBarMarginThickness}"
-                                >
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-
-                                <DockPanel Panel.ZIndex="1">
-                                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="16, 12">
-                                        <Image Source="/Assets/Logo80x80.png" Width="20" Height="20"/>
-                                        <TextBlock Margin="16,0,5,0" VerticalAlignment="Center" >ASTool</TextBlock>
-                                    </StackPanel>
-
-                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
-                                        <Button WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding WarpCommand}" Style="{StaticResource SystemButton}">_</Button>
-                                        <Button WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding MinMaxWinSizeCommand}" Style="{StaticResource SystemButton}">□</Button>
-                                        <Button WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding CloseCommand}" Style="{StaticResource SystemButtonClose}">X</Button>
-                                    </StackPanel>
-
-                                    <TextBox Height="30" MinWidth="200" MaxWidth="500" WindowChrome.IsHitTestVisibleInChrome="True"/>
-                                </DockPanel>
-
-                                <ContentPresenter
-                                    Grid.Row="1"
-                                    Content="{TemplateBinding Content}"
-                                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                                    Margin="0"/>
-                            </Grid>
-
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <DataTemplate DataType="{x:Type vm:FloaderPageViewModel}">
             <views:FloaderView DataContext="{Binding}" />
         </DataTemplate>
@@ -83,7 +39,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListBox ItemsSource="{Binding FloaderItems}"
+        <ListBox ItemsSource="{Binding FolderItems}"
                  SelectedItem="{Binding SelectedItem}"
                  BorderThickness="0"
                  Background="Transparent"
@@ -105,7 +61,7 @@
             <Button Style="{StaticResource NavigationButton}">Add Floader</Button>
             <Button Style="{StaticResource NavigationButton}">Add Code</Button>
             <Button Style="{StaticResource NavigationButton}">Support us</Button>
-            <Button Style="{StaticResource NavigationButton}">Settings</Button>
+            <Button Style="{StaticResource NavigationButton}" Command="{Binding OpenSettingsCommand}">Settings</Button>
         </StackPanel>
         <Border Grid.Column="1" Grid.RowSpan="2" Background="{StaticResource BackgroundColor}" CornerRadius="8,0,0,0">
             <ContentControl Content="{Binding CurrentPageViewModel}" />
