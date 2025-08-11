@@ -97,11 +97,11 @@ namespace ASTools.Lang {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Delite.
+        ///   Ищет локализованную строку, похожую на Delete.
         /// </summary>
-        public static string FolderButtonDelite {
+        public static string FolderButtonDelete {
             get {
-                return ResourceManager.GetString("FolderButtonDelite", resourceCulture);
+                return ResourceManager.GetString("FolderButtonDelete", resourceCulture);
             }
         }
         

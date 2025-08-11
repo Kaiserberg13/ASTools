@@ -1,12 +1,16 @@
-﻿using ASTools.Models;
+﻿using ASTools.Lang;
+using ASTools.Messenger;
+using ASTools.Models;
+using ASTools.Unit;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.Windows;
 
 
 namespace ASTools.ModelViews
 {
-    public partial class FloaderPageViewModel : ObservableObject
+    public partial class FloaderPageViewModel : ObservableObject, IRecipient<SettingsLangChangeMessage>
     {
         #region Public Properties
         [ObservableProperty]
@@ -17,14 +21,27 @@ namespace ASTools.ModelViews
 
         [ObservableProperty]
         public ObservableCollection<FilterModel> items;
+
+        private bool _isDefault;
+        public Visibility IsDefault
+        {
+            get => _isDefault? Visibility.Collapsed : Visibility.Visible;
+            set
+            {
+                SetProperty(ref _isDefault, value == Visibility.Collapsed);
+            }
+        }
         #endregion
 
 
 
         #region Constructor
-        public FloaderPageViewModel(string title, ObservableCollection<ComponentModel> tools)
+        public FloaderPageViewModel(string title, ObservableCollection<ComponentModel> tools) : this(title, tools, false) { }
+        public FloaderPageViewModel(string title, ObservableCollection<ComponentModel> tools, bool isItDeafault)
         {
             Title = title;
+            IsDefault = isItDeafault? Visibility.Collapsed : Visibility.Visible;
+            WeakReferenceMessenger.Default.Register<SettingsLangChangeMessage>(this);
 
             try
             {
@@ -57,5 +74,18 @@ namespace ASTools.ModelViews
             SelectedItem = Items.FirstOrDefault();
         }
         #endregion
+
+        public void Receive(SettingsLangChangeMessage message)
+        {
+            if (_isDefault)
+            {
+                var culture = LocalizationProvider.Instance.CurrentCulture;
+                var newTitle = Resources.ResourceManager.GetString("TitleHome", culture)
+                               ?? LocalizationProvider.Instance["TitleHome"]
+                               ?? "Home";
+                Title = newTitle;
+                OnPropertyChanged("Title");
+            }
+        }
     }
 }

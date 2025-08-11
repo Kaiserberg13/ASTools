@@ -34,6 +34,7 @@ namespace ASTools.ModelViews
         private Dictionary<string, string> _settings;
         private Dictionary<string, string> _changedSettings = new Dictionary<string, string>();
         private bool isLangChange = false;
+        private bool _isDirChange = false;
         #endregion
 
         #region Public Properties
@@ -48,6 +49,13 @@ namespace ASTools.ModelViews
                 SetProperty(ref _selectedLang, value);
                 isLangChange = true;
                 IsChanged = true;
+                if (_changedSettings == null || !_changedSettings.TryGetValue("Language", out var Value))
+                {
+                    _changedSettings.Add("Language", value);
+                } else
+                {
+                    _changedSettings["Language"] = value;
+                }
             }
         }
 
@@ -101,6 +109,7 @@ namespace ASTools.ModelViews
         {
             if (folderKey != null)
             {
+                _isDirChange = true;
                 var fbd = new OpenFolderDialog
                 {
                     Title = folderKey,
@@ -139,7 +148,12 @@ namespace ASTools.ModelViews
             {
                 foreach (var setting in _changedSettings)
                 {
-                    if (setting.Key == "toolsDir" || setting.Key == "guidesDir")
+                    if (setting.Key == "Language")
+                    {
+                        var newCulture = new CultureInfo(SelectedLang);
+                        LocalizationProvider.Instance.CurrentCulture = newCulture;
+                    }
+                    else if (setting.Key == "toolsDir" || setting.Key == "guidesDir")
                     {
                         var oldPath = Path.GetFullPath(_settings[setting.Key]);
                         var newPath = Path.GetFullPath(setting.Value);
@@ -164,13 +178,6 @@ namespace ASTools.ModelViews
                     }
                     _settings[setting.Key] = setting.Value;
                 }
-                if (isLangChange)
-                {
-                    var newCulture = new CultureInfo(SelectedLang);
-                    LocalizationProvider.Instance.CurrentCulture = newCulture;
-                    WeakReferenceMessenger.Default.Send(new SettingsLangChangeMessage(newCulture));
-                    isLangChange = false;
-                }
             });
 
             var jsonOptions = new JsonSerializerOptions
@@ -183,7 +190,16 @@ namespace ASTools.ModelViews
 
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                WeakReferenceMessenger.Default.Send(new SettingsChangedMessage(true));
+                if (isLangChange)
+                {
+                    WeakReferenceMessenger.Default.Send(new SettingsLangChangeMessage(new CultureInfo(_changedSettings["Language"])));
+                    isLangChange = false;
+                }
+                if(_isDirChange)
+                {
+                    _isDirChange = false;
+                    WeakReferenceMessenger.Default.Send(new SettingsChangedMessage(true));
+                }
                 IsNotSaving = true;
             });
         }

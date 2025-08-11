@@ -2,11 +2,13 @@
 using ASTools.Messenger;
 using ASTools.Models;
 using ASTools.Pages;
+using ASTools.Unit;
 using ASTools.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
@@ -95,8 +97,17 @@ namespace ASTools.ModelViews
         }
         public void Receive(SettingsLangChangeMessage message)
         {
+            var culture = LocalizationProvider.Instance.CurrentCulture;
+            var newTitle = Resources.ResourceManager.GetString("TitleHome", culture)
+                           ?? LocalizationProvider.Instance["TitleHome"]
+                           ?? "Home";
+
+            if (Application.Current?.Dispatcher?.CheckAccess() == true)
+            {
+                if (FolderItems != null && FolderItems.Count > 0)
+                    FolderItems[0].Title = newTitle;
+            }
             OnPropertyChanged(string.Empty);
-            FolderItems[0].Title = Resources.TitleHome;
         }
         #endregion
 
@@ -121,6 +132,8 @@ namespace ASTools.ModelViews
                         dir => dir.FullName
                     );
                 allFolders = JsonSerializer.Deserialize<List<FloaderInfo>>(File.ReadAllText(Path.Combine(baseDir, config["foldersJson"])));
+
+                LocalizationProvider.Instance.CurrentCulture = new CultureInfo(config["Language"]);
             });
 
             await Application.Current.Dispatcher.InvokeAsync(() =>
@@ -134,13 +147,19 @@ namespace ASTools.ModelViews
                             tool.Key))
                         .ToList();
 
+                    var culture = LocalizationProvider.Instance.CurrentCulture;
+                    var newTitle = Resources.ResourceManager.GetString("TitleHome", culture)
+                                   ?? LocalizationProvider.Instance["TitleHome"]
+                                   ?? "Home";
+
                     FolderItems = new ObservableCollection<FloaderModel>
                     {
                         new FloaderModel
                         (
                             new ObservableCollection<ComponentModel>(toolsModels),
                             "home.png",
-                            Resources.TitleHome
+                            newTitle,
+                            true
                         )
                     };
 

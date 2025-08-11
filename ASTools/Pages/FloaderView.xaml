@@ -17,7 +17,7 @@
                 <RadioButton GroupName="View" Content="Таблица" IsChecked="True"/>
                 <RadioButton GroupName="View" Content="строка"/>
             </StackPanel>
-            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[FolderButtonDelite]}" DockPanel.Dock="Right" Margin="5,0"/>
+            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[FolderButtonDelete]}" Visibility="{Binding IsDefault}" DockPanel.Dock="Right" Margin="5,0"/>
             <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[FolderButtonEdit]}" DockPanel.Dock="Right" Margin="5,0"/>
             <TextBlock Text="{Binding Title}" FontSize="24" FontFamily="Segoe UI Variable Text Semibold"/>
         </DockPanel>

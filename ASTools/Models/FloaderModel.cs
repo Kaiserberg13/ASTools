@@ -17,6 +17,7 @@ namespace ASTools.Models
         private string _title = "";
         private ImageSource _icon;
         private FloaderPageViewModel _pageViewModel;
+        private bool _isDefault = false;
 
         public string Title
         {
@@ -45,15 +46,37 @@ namespace ASTools.Models
                 OnPropertyChanged("PageViewModel");
             }
         }
+        public bool IsDefault
+        {
+            get => _isDefault;
+            set
+            {
+                _isDefault = value;
+                OnPropertyChanged("IsDefault");
+            }
+        }
 
-
-        public FloaderModel(ObservableCollection<ComponentModel> floaderTools, string floaderIcon, string floaderTitle)
+        public FloaderModel(ObservableCollection<ComponentModel> floaderTools, string floaderIcon, string floaderTitle) 
         {
             try
             {
                 Title = floaderTitle;
                 Icon = new BitmapImage(new Uri($"pack://application:,,,/Assets/Icons/{floaderIcon}"));
                 PageViewModel = new FloaderPageViewModel(_title, floaderTools);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error initializing floader: " + ex.Message, "Sturtup critical error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        public FloaderModel(ObservableCollection<ComponentModel> floaderTools, string floaderIcon, string floaderTitle, bool isItDefault)
+        {
+            try
+            {
+                Title = floaderTitle;
+                Icon = new BitmapImage(new Uri($"pack://application:,,,/Assets/Icons/{floaderIcon}"));
+                PageViewModel = new FloaderPageViewModel(_title, floaderTools, isItDefault);
+                IsDefault = isItDefault;
             } catch (Exception ex)
             {
                 MessageBox.Show("Error initializing floader: " + ex.Message, "Sturtup critical error", MessageBoxButton.OK, MessageBoxImage.Error);

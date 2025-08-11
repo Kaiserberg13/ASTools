@@ -126,7 +126,7 @@
   <data name="FolderButtonEdit" xml:space="preserve">
     <value>Изменить</value>
   </data>
-  <data name="FolderButtonDelite" xml:space="preserve">
+  <data name="FolderButtonDelete" xml:space="preserve">
     <value>Удалить</value>
   </data>
   <data name="TitleHome" xml:space="preserve">
