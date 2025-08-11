@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ASTools.View"
+        xmlns:lcliz="clr-namespace:ASTools.Unit"
         mc:Ignorable="d"
         Title="LoadScreen" Height="200" Width="325"    
         WindowStyle="None"
@@ -20,7 +21,7 @@
         />
     </WindowChrome.WindowChrome>
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBlock Text="Загрузка данных..." Margin="0,0,0,10"/>
+        <TextBlock Text="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[LoadScreenText]}" Margin="0,0,0,10"/>
         <ProgressBar IsIndeterminate="True" Width="200" Height="20"/>
     </StackPanel>
 </Window>

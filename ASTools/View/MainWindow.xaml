@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ASTools.View"
         xmlns:views="clr-namespace:ASTools.Pages"
         xmlns:vm="clr-namespace:ASTools.ModelViews"
+        xmlns:lcliz="clr-namespace:ASTools.Unit"
         mc:Ignorable="d"
         Title="ASTools" Height="670" Width="1200"
         MinHeight="570" MinWidth="750"
@@ -58,9 +59,9 @@
             </ListBox.ItemContainerStyle>
         </ListBox>
         <StackPanel Grid.Row="1">
-            <Button Style="{StaticResource NavigationButton}">Add Floader</Button>
-            <Button Style="{StaticResource NavigationButton}">Add Code</Button>
-            <Button Style="{StaticResource NavigationButton}" Command="{Binding OpenSettingsCommand}">Settings</Button>
+            <Button Style="{StaticResource NavigationButton}" Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[ButtonAddFolder]}"/>
+            <Button Style="{StaticResource NavigationButton}" Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[ButtonAddCode]}"/>
+            <Button Style="{StaticResource NavigationButton}" Command="{Binding OpenSettingsCommand}"   Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[TitleSettins]}"/>
         </StackPanel>
         <Border Grid.Column="1" Grid.RowSpan="2" Background="{StaticResource BackgroundColor}" CornerRadius="8,0,0,0">
             <ContentControl Content="{Binding CurrentPageViewModel}" />

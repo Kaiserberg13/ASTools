@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,5 +11,10 @@ namespace ASTools.Messenger
     public class SettingsChangedMessage : ValueChangedMessage<bool>
     {
         public SettingsChangedMessage(bool value) : base(value) { }
+    }
+
+    public class SettingsLangChangeMessage : ValueChangedMessage<CultureInfo>
+    {
+        public SettingsLangChangeMessage(CultureInfo newCulture) : base(newCulture) { }
     }
 }

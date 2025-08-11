@@ -1,9 +1,13 @@
-﻿using ASTools.Messenger;
+﻿using ASTools.Lang;
+using ASTools.Messenger;
+using ASTools.Unit;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Win32;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
@@ -11,26 +15,67 @@ using System.Windows.Documents;
 
 namespace ASTools.ModelViews
 {
+    public class LangOption
+    {
+        public string Label { get; }
+        public string Value { get; }
+
+        public LangOption(string label, string value)
+        {
+            Label = label;
+            Value = value;
+        }
+    }
+
     public partial class SettingsWindowViewModel : WindowViewModel
     {
         #region private member
         private string _settigsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Config", "App.settings.json");
         private Dictionary<string, string> _settings;
         private Dictionary<string, string> _changedSettings = new Dictionary<string, string>();
+        private bool isLangChange = false;
         #endregion
 
         #region Public Properties
+        public ObservableCollection<LangOption> LangItems { get; } = new();
+
+        private string _selectedLang;
+        public string SelectedLang
+        {
+            get => _selectedLang;
+            set 
+            {
+                SetProperty(ref _selectedLang, value);
+                isLangChange = true;
+                isLangChange = true;
+            }
+        }
+
         [ObservableProperty]
         private string toolsDir;
 
         [ObservableProperty]
         private string guidesDir;
 
-        [ObservableProperty]
-        private bool isChanged = false;
+        private bool _isChanged = false;
+        public bool IsChanged
+        {
+            get => _isChanged;
+            private set
+            {
+                SetProperty(ref _isChanged, value);
+            }
+        }
 
-        [ObservableProperty]
-        private bool isNotSaving = true;
+        private bool _isNotSaving = true;
+        public bool IsNotSaving
+        {
+            get => _isNotSaving;
+            private set
+            {
+                SetProperty(ref _isNotSaving, value);
+            }
+        }
         #endregion
 
         #region Changed
@@ -88,55 +133,59 @@ namespace ASTools.ModelViews
         [RelayCommand]
         private async Task Save()
         {
-            if (_changedSettings.Count > 0)
+            IsNotSaving = false;
+            IsChanged = false;
+            await Task.Run(() =>
             {
-                IsNotSaving = false;
-                IsChanged = false;
-                await Task.Run(() =>
+                foreach (var setting in _changedSettings)
                 {
-                    foreach (var setting in _changedSettings)
+                    if (setting.Key == "toolsDir" || setting.Key == "guidesDir")
                     {
-                        if (setting.Key == "toolsDir" || setting.Key == "guidesDir")
+                        var oldPath = Path.GetFullPath(_settings[setting.Key]);
+                        var newPath = Path.GetFullPath(setting.Value);
+
+                        if (Directory.Exists(oldPath))
                         {
-                            var oldPath = Path.GetFullPath(_settings[setting.Key]);
-                            var newPath = Path.GetFullPath(setting.Value);
-
-                            if (Directory.Exists(oldPath))
+                            if (!Directory.Exists(newPath))
                             {
-                                if(!Directory.Exists(newPath))
-                                {
-                                    Directory.CreateDirectory(newPath);
-                                }
+                                Directory.CreateDirectory(newPath);
+                            }
 
-                                foreach (var subDir in Directory.GetDirectories(oldPath))
+                            foreach (var subDir in Directory.GetDirectories(oldPath))
+                            {
+                                var destDir = Path.Combine(newPath, Path.GetFileName(subDir));
+                                if (Directory.Exists(destDir))
                                 {
-                                    var destDir = Path.Combine(newPath, Path.GetFileName(subDir));
-                                    if (Directory.Exists(destDir))
-                                    {
-                                        Directory.Delete(destDir, true);
-                                    }
-                                    Directory.Move(subDir, destDir);
+                                    Directory.Delete(destDir, true);
                                 }
+                                Directory.Move(subDir, destDir);
                             }
                         }
-                        _settings[setting.Key] = setting.Value;
                     }
-                });
-
-                var jsonOptions = new JsonSerializerOptions
+                    _settings[setting.Key] = setting.Value;
+                }
+                if (isLangChange)
                 {
-                    WriteIndented = true
-                };
+                    var newCulture = new CultureInfo(SelectedLang);
+                    LocalizationProvider.Instance.CurrentCulture = newCulture;
+                    WeakReferenceMessenger.Default.Send(new SettingsLangChangeMessage(newCulture));
+                    isLangChange = false;
+                }
+            });
 
-                string jsonContent = JsonSerializer.Serialize(_settings, jsonOptions);
-                await File.WriteAllTextAsync(_settigsPath, jsonContent);
+            var jsonOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
 
-                await Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    WeakReferenceMessenger.Default.Send(new SettingsChangedMessage(true));
-                    IsNotSaving = true;
-                }); 
-            }
+            string jsonContent = JsonSerializer.Serialize(_settings, jsonOptions);
+            await File.WriteAllTextAsync(_settigsPath, jsonContent);
+
+            await Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                WeakReferenceMessenger.Default.Send(new SettingsChangedMessage(true));
+                IsNotSaving = true;
+            });
         }
 
         [RelayCommand]
@@ -150,7 +199,7 @@ namespace ASTools.ModelViews
         {
             if (IsChanged)
             {
-                MessageBoxResult result = MessageBox.Show("Изменения не сохранены. Закрыть окно?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                MessageBoxResult result = MessageBox.Show(Resources.DialogMessageCloseWithoutSaivingText, Resources.DialogMessageCloseWithoutSaivingTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.No)
                 {
                     return;
@@ -169,6 +218,9 @@ namespace ASTools.ModelViews
 
             ToolsDir = _settings["toolsDir"];
             GuidesDir = _settings["guidesDir"];
+
+            LangItems.Add(new LangOption("Русский", "ru"));
+            LangItems.Add(new LangOption("English", "en"));
         }
         #endregion
 

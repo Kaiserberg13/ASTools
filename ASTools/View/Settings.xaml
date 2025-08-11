@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ASTools.View"
+        xmlns:lcliz="clr-namespace:ASTools.Unit"
         mc:Ignorable="d"
-        Title="Settings" Height="450" Width="800"
+        Title="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[TitleSettins]}" Height="450" Width="800"
         WindowStyle="None"
         Style="{StaticResource WindowStyle}"
         AllowsTransparency="True"
@@ -36,23 +37,36 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label Content="Tools directory" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <Label Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[SettingsSettingTitleToolsDir]}" VerticalAlignment="Center" Margin="0,0,5,0"/>
                 <TextBlock Text="{Binding ToolsDir}" Margin="5" VerticalAlignment="Center" Grid.Column="1"/>
                 <Button Content="Browse" Command="{Binding SelectFolderCommand}" CommandParameter="toolsDir" Grid.Column="2" Margin="10,2,5,2"/>
                 <TextBlock Text="{Binding NewToolsDir}" Margin="5" VerticalAlignment="Center" Grid.Column="3"/>
 
-                <Label Content="Guides directory" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <Label Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[SettingsSettingTitleGuidesDir]}" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,5,0"/>
                 <TextBlock Text="{Binding GuidesDir}" Margin="5" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
                 <Button Content="Browse" Command="{Binding SelectFolderCommand}" CommandParameter="guidesDir" Grid.Column="2" Grid.Row="1" Margin="10,2,5,2"/>
                 <TextBlock Text="{Binding NewGuidesDir}" Margin="5" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1"/>
 
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="4">
+                    <Label Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[SettingsSettingTitleLang]}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <ComboBox
+                        IsEditable="True"
+                        IsReadOnly="True"
+                        Text="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[SettingsSettingTitleSelectionLang], Mode=OneWay}"
+                        ItemsSource="{Binding LangItems}"
+                        DisplayMemberPath="Label"
+                        SelectedValuePath="Value"
+                        SelectedValue="{Binding SelectedLang, Mode=TwoWay}" />
+                </StackPanel>
+                
             </Grid>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,5">
-            <Button Content="Apply" Command="{Binding SaveCommand}" IsEnabled="{Binding IsChanged}" Padding="12,6" Margin="5,0"/>
-            <Button Content="Cansel" Command="{Binding CancelCommand}" IsEnabled="{Binding IsSaving}" Padding="12,6" Margin="5,0"/>
-            <Button Content="Support us" Command="{Binding OpenSupportBrowserCommand}" Padding="12,6" Margin="5,0"/>
+            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[SettingsButtonApply]}" Command="{Binding SaveCommand}" IsEnabled="{Binding IsChanged}" Padding="12,6" Margin="5,0"/>
+            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[SettingsButtonCancel]}" Command="{Binding CancelCommand}" IsEnabled="{Binding IsNotSaving}" Padding="12,6" Margin="5,0"/>
+            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[SettingsButtonSupportUs]}" Command="{Binding OpenSupportBrowserCommand}" Padding="12,6" Margin="5,0"/>
         </StackPanel>
     </Grid>
 </Window>

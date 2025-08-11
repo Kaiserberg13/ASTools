@@ -3,5 +3,6 @@
   "foldersJson": "Data/Config/FoldersData.json",
   "guidesDir": "Data/Guides",
   "theme": "light",
-  "themeDir": "Data/Themes"
+  "themeDir": "Data/Themes",
+  "Language": "en"
 }

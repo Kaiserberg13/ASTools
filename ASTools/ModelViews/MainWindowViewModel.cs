@@ -1,4 +1,5 @@
-﻿using ASTools.Messenger;
+﻿using ASTools.Lang;
+using ASTools.Messenger;
 using ASTools.Models;
 using ASTools.Pages;
 using ASTools.View;
@@ -20,7 +21,7 @@ namespace ASTools.ModelViews
         public string[] Tools { get; set; }
     }
 
-    public partial class MainWindowViewModel : WindowViewModel, IRecipient<SettingsChangedMessage>
+    public partial class MainWindowViewModel : WindowViewModel, IRecipient<SettingsChangedMessage>, IRecipient<SettingsLangChangeMessage>
     {
 
         #region Private Member
@@ -67,9 +68,10 @@ namespace ASTools.ModelViews
         public MainWindowViewModel(Window window) : base(window)
         {
             WeakReferenceMessenger.Default.Register<SettingsChangedMessage>(this);
+            WeakReferenceMessenger.Default.Register<SettingsLangChangeMessage>(this);
 
             var loadingWindow = new LoadScreen();
-            loadingWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;  // Центр экрана
+            loadingWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             loadingWindow.Topmost = true;
             loadingWindow.Show();
 
@@ -87,9 +89,14 @@ namespace ASTools.ModelViews
             {
                 await LoadData();
                 OnPropertyChanged(nameof(FolderItems));
-                if(FolderItems.Any())
+                if (FolderItems.Any())
                     SelectedItem = FolderItems.First();
             }
+        }
+        public void Receive(SettingsLangChangeMessage message)
+        {
+            OnPropertyChanged(string.Empty);
+            FolderItems[0].Title = Resources.TitleHome;
         }
         #endregion
 
@@ -133,7 +140,7 @@ namespace ASTools.ModelViews
                         (
                             new ObservableCollection<ComponentModel>(toolsModels),
                             "home.png",
-                            "Home"
+                            Resources.TitleHome
                         )
                     };
 
