@@ -1,51 +1,30 @@
 ﻿using ASTools.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 
 namespace ASTools.ModelViews
 {
-    public class FloaderPageViewModel : BaseViewModel
+    public partial class FloaderPageViewModel : ObservableObject
     {
-        private string _title;
-        private FilterModel _selectedItem;
-        private ObservableCollection<FilterModel> _items;
+        #region Public Properties
+        [ObservableProperty]
+        public string title;
 
-        public FilterModel SelectedItem
-        {
-            get => _selectedItem;
-            set
-            {
-                _selectedItem = value;
-                OnPropertyChanged("SelectedItem");
-            }
-        }
-        public ObservableCollection<FilterModel> Items
-        {
-            get => _items;
-            set
-            {
-                _items = value;
-                OnPropertyChanged("Items");
-            }
-        }
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                _title = value;
-                OnPropertyChanged("Title");
-            }
-        }
+        [ObservableProperty]
+        public FilterModel selectedItem;
 
+        [ObservableProperty]
+        public ObservableCollection<FilterModel> items;
+        #endregion
+
+
+
+        #region Constructor
         public FloaderPageViewModel(string title, ObservableCollection<ComponentModel> tools)
         {
-            _title = title;
+            Title = title;
 
             try
             {
@@ -77,5 +56,6 @@ namespace ASTools.ModelViews
 
             SelectedItem = Items.FirstOrDefault();
         }
+        #endregion
     }
 }

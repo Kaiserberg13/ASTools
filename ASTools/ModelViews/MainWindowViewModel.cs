@@ -106,7 +106,13 @@ namespace ASTools.ModelViews
             {
                 config = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.Combine(baseDir, "Data", "Config", "App.settings.json")));
 
-                allTools = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.Combine(baseDir, config["toolsJson"])));
+                allTools = Directory.GetDirectories(Path.GetFullPath(config["toolsDir"]))
+                    .Select(dirPath => new DirectoryInfo(dirPath))
+                    .Where(dir => dir.Name != "Tamplate")
+                    .ToDictionary(
+                        dir => dir.Name,
+                        dir => dir.FullName
+                    );
                 allFolders = JsonSerializer.Deserialize<List<FloaderInfo>>(File.ReadAllText(Path.Combine(baseDir, config["foldersJson"])));
             });
 
@@ -121,13 +127,27 @@ namespace ASTools.ModelViews
                             tool.Key))
                         .ToList();
 
-                    FolderItems = new ObservableCollection<FloaderModel>(
-                        allFolders.Select(folder =>
-                            new FloaderModel(
-                                new ObservableCollection<ComponentModel>(
-                                    toolsModels.Where(tool => folder.Tools.Contains(tool.ToolKey))),
-                                folder.Icon,
-                                folder.Name)));
+                    FolderItems = new ObservableCollection<FloaderModel>
+                    {
+                        new FloaderModel
+                        (
+                            new ObservableCollection<ComponentModel>(toolsModels),
+                            "home.png",
+                            "Home"
+                        )
+                    };
+
+                    foreach (var folder in allFolders)
+                    {
+                        var components = toolsModels
+                            .Where(tool => folder.Tools.Contains(tool.ToolKey))
+                            .ToList();
+                        FolderItems.Add(new FloaderModel(
+                            new ObservableCollection<ComponentModel>(components),
+                            folder.Icon,
+                            folder.Name
+                        ));
+                    }
 
                     if (FolderItems.Any())
                         SelectedItem = FolderItems.First();

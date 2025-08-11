@@ -60,7 +60,6 @@
         <StackPanel Grid.Row="1">
             <Button Style="{StaticResource NavigationButton}">Add Floader</Button>
             <Button Style="{StaticResource NavigationButton}">Add Code</Button>
-            <Button Style="{StaticResource NavigationButton}">Support us</Button>
             <Button Style="{StaticResource NavigationButton}" Command="{Binding OpenSettingsCommand}">Settings</Button>
         </StackPanel>
         <Border Grid.Column="1" Grid.RowSpan="2" Background="{StaticResource BackgroundColor}" CornerRadius="8,0,0,0">
