@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:ASTools.Pages"
              xmlns:lcliz="clr-namespace:ASTools.Unit"
              mc:Ignorable="d" 
@@ -35,6 +36,13 @@
                     <ListBox ItemsSource="{Binding Content}"
                          BorderThickness="0"
                          Background="Transparent">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction
+                                    Command="{Binding DataContext.OpenToolPageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>   
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -58,7 +66,9 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                         <ListBox.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource Selection}"/>
+                            <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource Selection}">
+
+                            </Style>
                         </ListBox.ItemContainerStyle>
                     </ListBox>
                 </DataTemplate>

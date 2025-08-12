@@ -21,6 +21,9 @@
         <DataTemplate DataType="{x:Type vm:FloaderPageViewModel}">
             <views:FloaderView DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ToolPageViewModel}">
+            <views:ToolView DataContext="{Binding}" />
+        </DataTemplate>
     </Window.Resources>
     
     <WindowChrome.WindowChrome>

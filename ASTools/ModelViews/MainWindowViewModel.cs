@@ -23,7 +23,11 @@ namespace ASTools.ModelViews
         public string[] Tools { get; set; }
     }
 
-    public partial class MainWindowViewModel : WindowViewModel, IRecipient<SettingsChangedMessage>, IRecipient<SettingsLangChangeMessage>
+    public partial class MainWindowViewModel : WindowViewModel, 
+        IRecipient<SettingsChangedMessage>, 
+        IRecipient<SettingsLangChangeMessage>,
+        IRecipient<BackToFolderMassege>,
+        IRecipient<OpenToolPageMessage>
     {
 
         #region Private Member
@@ -51,13 +55,14 @@ namespace ASTools.ModelViews
             set
             {
                 _selectedItem = value;
+                CurrentPageViewModel = value.PageViewModel;
                 OnPropertyChanged("SelectedItem");
                 OnPageChanged();
             }
         }
         #endregion
 
-        #region Commands
+        #region MainWindow Commands
         [RelayCommand]
         private void OpenSettings()
         {
@@ -66,11 +71,17 @@ namespace ASTools.ModelViews
         }
         #endregion
 
+        #region ToolsPage Commands
+        
+        #endregion
+
         #region Constructor
         public MainWindowViewModel(Window window) : base(window)
         {
             WeakReferenceMessenger.Default.Register<SettingsChangedMessage>(this);
             WeakReferenceMessenger.Default.Register<SettingsLangChangeMessage>(this);
+            WeakReferenceMessenger.Default.Register<BackToFolderMassege>(this);
+            WeakReferenceMessenger.Default.Register<OpenToolPageMessage>(this);
 
             var loadingWindow = new LoadScreen();
             loadingWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -108,6 +119,20 @@ namespace ASTools.ModelViews
                     FolderItems[0].Title = newTitle;
             }
             OnPropertyChanged(string.Empty);
+        }
+        public void Receive(BackToFolderMassege message)
+        {
+            if (SelectedItem != null)
+            {
+                CurrentPageViewModel = SelectedItem.PageViewModel;
+            }
+        }
+        public void Receive(OpenToolPageMessage message)
+        {
+            if (message.Value != null)
+            {
+                CurrentPageViewModel = message.Value;
+            }
         }
         #endregion
 
@@ -176,7 +201,10 @@ namespace ASTools.ModelViews
                     }
 
                     if (FolderItems.Any())
+                    {
                         SelectedItem = FolderItems.First();
+                    }
+                       
                 } catch (Exception ex)
                 {
                     MessageBox.Show("Error initializing UI: " + ex.Message, "Startup critical error", MessageBoxButton.OK, MessageBoxImage.Error);

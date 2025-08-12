@@ -28,6 +28,7 @@ namespace ASTools.Models
         private string[] _tags = ["Udefiend"];
         private string _tagsDisplay = "Udefiend";
         private ImageSource _banner = new BitmapImage(new Uri("pack://application:,,,/Assets/DefaultIcon.png"));
+        private string _mdReadme = string.Empty;
         private string _codePath;
 
         public string ToolKey { get; set; }
@@ -39,6 +40,15 @@ namespace ASTools.Models
         public string TagsDisplay { get { return _tagsDisplay; } set { _tagsDisplay = value; OnPropertyChanged("TagsDisplay"); } }
         public ImageSource Banner { get { return _banner; } set { _banner = value; OnPropertyChanged("Banner"); } }
         //private string CodePath { get { return _codePath; } set { _codePath = value; OnPropertyChanged("CodePath"); } }
+        public string MdReadme
+        {
+            get { return _mdReadme; }
+            set
+            {
+                _mdReadme = value;
+                OnPropertyChanged("MdReadme");
+            }
+        }
 
         public ComponentModel(string path, string tool_name)
         {
@@ -51,23 +61,17 @@ namespace ASTools.Models
                     description = "No information",
                     tags = ["undefiend"]
                 };
-                if(File.Exists(Path.Combine(path, tool_name + ".exe")))
-                {
-                    _codePath = Path.Combine(path, tool_name + ".exe");
-                } else if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path, tool_name + ".exe")))
-                {
-                    _codePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path, tool_name + ".exe");
-                }
 
-                if (File.Exists(Path.Combine(path, "info.json")))
-                {
-                    json = JsonSerializer.Deserialize<ComponentInfo>(File.ReadAllText(Path.Combine(path, "info.json")));
+                if(File.Exists(Path.GetFullPath(Path.Combine(path, tool_name + ".exe"))))
+                    _codePath = Path.GetFullPath(Path.Combine(path, tool_name + ".exe"));
 
-                }
-                else if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path, "info.json")))
-                {
-                    json = JsonSerializer.Deserialize<ComponentInfo>(File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path, "info.json")));
-                }
+                if (File.Exists(Path.GetFullPath(Path.Combine(path, "info.json"))))
+                    json = JsonSerializer.Deserialize<ComponentInfo>(File.ReadAllText(Path.GetFullPath(Path.Combine(path, "info.json"))));
+
+                if(File.Exists(Path.GetFullPath(Path.Combine(path, "readme.md")))) 
+                    MdReadme = File.ReadAllText(Path.GetFullPath(Path.Combine(path, "readme.md")));
+                
+
                 Name = json.name ?? "undefiend";
                 Author = json.author ?? "unknown";
                 Description = json.description ?? "No information";

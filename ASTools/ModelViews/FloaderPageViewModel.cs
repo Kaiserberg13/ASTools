@@ -3,6 +3,7 @@ using ASTools.Messenger;
 using ASTools.Models;
 using ASTools.Unit;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -33,7 +34,15 @@ namespace ASTools.ModelViews
         }
         #endregion
 
-
+        #region Commands
+        [RelayCommand]
+        private void OpenToolPage(ComponentModel tool)
+        {
+            if (tool == null) return;
+            var toolPageViewModel = new ToolPageViewModel(tool);
+            WeakReferenceMessenger.Default.Send(new OpenToolPageMessage(toolPageViewModel));
+        }
+        #endregion
 
         #region Constructor
         public FloaderPageViewModel(string title, ObservableCollection<ComponentModel> tools) : this(title, tools, false) { }
