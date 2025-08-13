@@ -53,7 +53,7 @@
                 <DataTemplate>
                     <StackPanel>
                         <Image Source="{Binding Icon}" Stretch="Fill" Height="24" Width="24" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{Binding Title}" HorizontalAlignment="Center" Foreground="{StaticResource TextColor}" TextAlignment="Center" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Title}" HorizontalAlignment="Center" Foreground="{StaticResource TextColor_Primary}" TextAlignment="Center" TextWrapping="Wrap"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -66,7 +66,7 @@
             <Button Style="{StaticResource NavigationButton}" Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[ButtonAddCode]}"/>
             <Button Style="{StaticResource NavigationButton}" Command="{Binding OpenSettingsCommand}"   Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[TitleSettins]}"/>
         </StackPanel>
-        <Border Grid.Column="1" Grid.RowSpan="2" Background="{StaticResource BackgroundColor}" CornerRadius="8,0,0,0">
+        <Border Grid.Column="1" Grid.RowSpan="2" Background="{StaticResource BackgroundColor_Secondary}" CornerRadius="8,0,0,0">
             <ContentControl Content="{Binding CurrentPageViewModel}" />
         </Border>
     </Grid>

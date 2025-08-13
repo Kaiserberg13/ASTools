@@ -21,7 +21,7 @@
         />
     </WindowChrome.WindowChrome>
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBlock Text="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[LoadScreenText]}" Margin="0,0,0,10"/>
+        <TextBlock Text="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[LoadScreenText]}" Style="{StaticResource TextBlok_BodyStrong}" Margin="0,0,0,10"/>
         <ProgressBar IsIndeterminate="True" Width="200" Height="20"/>
     </StackPanel>
 </Window>

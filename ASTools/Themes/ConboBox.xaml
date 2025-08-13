@@ -1,0 +1,141 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="{x:Type ComboBox}" x:Key="CustomComboBox">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background" Value="{StaticResource ItemColor_Default}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource OutlineColor_Default}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="12, 6"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid x:Name="Root" SnapsToDevicePixels="True">
+                        
+
+                            <ToggleButton x:Name="DropDownToggle"
+                                          Focusable="False"
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ClickMode="Press"
+                                          Style="{StaticResource TBComboBox}"
+                                          Grid.ColumnSpan="2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ContentPresenter x:Name="ContentSite"
+                                                      VerticalAlignment="Center"
+                                                      HorizontalAlignment="Left"
+                                                      Content="{TemplateBinding SelectionBoxItem}"
+                                                      ContentTemplate="{TemplateBinding ItemTemplate}" 
+                                                      ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                      IsHitTestVisible="False"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    <TextBox x:Name="PART_EditableTextBox"
+                                             Visibility="Hidden"
+                                             HorizontalAlignment="Left"
+                                             VerticalAlignment="Center"
+                                             Focusable="True"
+                                             Foreground="{TemplateBinding Foreground}"
+                                             Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Path x:Name="Arrow"
+                                          Grid.Column="1"
+                                          HorizontalAlignment="Right"
+                                          VerticalAlignment="Center"
+                                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{TemplateBinding Foreground}"
+                                          Stretch="Uniform">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M2.21967 4.46967C2.51256 4.17678 2.98744 4.17678 3.28033 4.46967L6 7.18934L8.71967 4.46967C9.01256 4.17678 9.48744 4.17678 9.78033 4.46967C10.0732 4.76256 10.0732 5.23744 9.78033 5.53033L6.53033 8.78033C6.23744 9.07322 5.76256 9.07322 5.46967 8.78033L2.21967 5.53033C1.92678 5.23744 1.92678 4.76256 2.21967 4.46967Z" FillRule="NonZero"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Grid>
+                            </ToggleButton>
+
+                            <Popup x:Name="PART_Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+
+                            <Border x:Name="DropDownBorder"
+                                    BorderThickness="1"
+                                    SnapsToDevicePixels="True"
+                                    MinWidth="{TemplateBinding ActualWidth}"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                    Background="{StaticResource ItemColor_Default}"
+                                    BorderBrush="{StaticResource OutlineColor_Default}"
+                                    Padding="4, 2"
+                                    CornerRadius="8">
+                                <ScrollViewer SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEditable" Value="True">
+                            <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                            <Setter Property="IsTabStop" Value="False"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource TextColor_Disabled}"/>
+                            <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource TextColor_Secondary}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsDropDownOpen" Value="True">
+                            <Setter TargetName="Arrow" Property="Stroke" Value="{StaticResource ItemColor_Pressed}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ComboBoxItem}" x:Key="CustomComboBoxItem">
+        <Setter Property="Padding" Value="1,8"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border x:Name="Border"
+                            Background="{StaticResource ItemColor_Default}"
+                            CornerRadius="4"
+                            Margin="0, 2"
+                            Padding="{TemplateBinding Padding}">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="BdSelected"
+                                    Background="Transparent"
+                                    CornerRadius="2"
+                                    Width="4"
+                                    Height="16"/>
+                            <ContentPresenter HorizontalAlignment="Left"
+                                              VerticalAlignment="Center" 
+                                              Margin="12, 0"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ItemColor_Hover}" />
+                            <Setter Property="Foreground" Value="{StaticResource TextColor_Secondary}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="BdSelected" Property="Background" Value="{StaticResource AccentColor_Default}" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ItemColor_Pressed}" />
+                            <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ItemColor_Disabled}" />
+                            <Setter Property="Foreground" Value="{StaticResource TextColor_Disabled}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

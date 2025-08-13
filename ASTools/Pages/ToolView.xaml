@@ -13,34 +13,34 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button Content="Back" Command="{Binding BackCommand}" Width="100" Height="20" HorizontalAlignment="Left"/>
+        <Button Content="//- Back" Command="{Binding BackCommand}" Style="{StaticResource BackBtn}" HorizontalAlignment="Left" Margin="5"/>
         <DockPanel Grid.Row="1">
-            <Border Width="62" Height="62" CornerRadius="8" Margin="4" DockPanel.Dock="Left">
+            <Border Width="62" Height="62" CornerRadius="8" Margin="10,4,4,4" DockPanel.Dock="Left">
                 <Border.Background>
                     <ImageBrush Stretch="Fill" ImageSource="{Binding Tool.Icon}"/>
                 </Border.Background>
             </Border>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                <Button>Удалить</Button>
-                <Button>Изменить</Button>
-                <Button>Запустить</Button>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="0,0,10,0">
+                <Button Style="{StaticResource CancelBtn}" VerticalAlignment="Center" Margin="0,0,5,0">Удалить</Button>
+                <Button Style="{StaticResource DefaultBtn}" VerticalAlignment="Center" Margin="0,0,5,0">Изменить</Button>
+                <Button Style="{StaticResource AccentBtn}" VerticalAlignment="Center">Запустить</Button>
             </StackPanel>
-            <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
-                <TextBlock Text="{Binding Tool.Name}" FontSize="24" FontFamily="Segoe UI Variable Text Semibold" Margin="10,0,0,0"/>
-                <TextBlock Text="{Binding Tool.Author}" />
+            <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+                <TextBlock Text="{Binding Tool.Name}" Style="{StaticResource TextBlok_Subtitle}"/>
+                <TextBlock Text="{Binding Tool.Author}" Style="{StaticResource TextBlok_Body}"/>
             </StackPanel>
         </DockPanel>
-        <TabControl Grid.Row="2">
-            <TabItem Header="Описание">
+        <TabControl Grid.Row="2" Margin="5, 10, 5, 0">
+            <TabItem Header="Описание" Style="{StaticResource ToolInfoItem}">
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled">
                     <StackPanel>
-                        <TextBlock Text="{Binding Tool.Description}" Margin="10" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Tool.Description}" Margin="10" TextWrapping="Wrap" Foreground="{StaticResource TextColor_Primary}"/>
                         <Image Source="{Binding Tool.Banner}" />
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="Документация" Visibility="{Binding isRMHawe}">
-                <mdview:MarkdownViewer Markdown="{Binding Tool.MdReadme}"/>
+            <TabItem Header="Документация" Style="{StaticResource ToolInfoItem}" Visibility="{Binding isRMHawe}">
+                <mdview:MarkdownViewer Markdown="{Binding Tool.MdReadme}" Foreground="{StaticResource TextColor_Primary}"/>
             </TabItem>
         </TabControl>
     </Grid>

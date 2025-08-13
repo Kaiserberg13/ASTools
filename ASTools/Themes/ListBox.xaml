@@ -12,10 +12,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource HoverColor}"/>
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ItemColor_Hover}"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource HoverColor}"/>
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ItemColor_Pressed}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -23,7 +23,7 @@
         </Setter>
     </Style>
     <Style TargetType="{x:Type ListBoxItem}" x:Key="NavigationItem">
-        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -35,12 +35,12 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ButtonBorder" Property="Background" Value="{StaticResource HoverColor}"/>
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="{StaticResource ItemColor_Hover}"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="ButtonBorder" Property="Background" Value="{StaticResource SelectedColor}"/>
-                            <Setter TargetName="TabActive" Property="Background" Value="{StaticResource AcentColor}"/>
-                            <Setter Property="Foreground" Value="{StaticResource AcentColor}"/>
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="{StaticResource ItemColor_Pressed}"/>
+                            <Setter TargetName="TabActive" Property="Background" Value="{StaticResource AccentColor_Default}"/>
+                            <Setter Property="Foreground" Value="{StaticResource TextColor_Accent_Primary}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

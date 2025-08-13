@@ -18,9 +18,9 @@
                 <RadioButton GroupName="View" Content="Таблица" IsChecked="True"/>
                 <RadioButton GroupName="View" Content="строка"/>
             </StackPanel>
-            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[FolderButtonDelete]}" Visibility="{Binding IsDefault}" DockPanel.Dock="Right" Margin="5,0"/>
-            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[FolderButtonEdit]}" DockPanel.Dock="Right" Margin="5,0"/>
-            <TextBlock Text="{Binding Title}" FontSize="24" FontFamily="Segoe UI Variable Text Semibold"/>
+            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[FolderButtonDelete]}" Visibility="{Binding IsDefault}" Style="{StaticResource CancelBtn}" VerticalAlignment="Center" DockPanel.Dock="Right" Margin="5,0"/>
+            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[FolderButtonEdit]}" Style="{StaticResource DefaultBtn}" VerticalAlignment="Center" DockPanel.Dock="Right" Margin="5,0"/>
+            <TextBlock Text="{Binding Title}" Style="{StaticResource TextBlok_Title}"/>
         </DockPanel>
         <TabControl Style="{StaticResource FloaderControl}" 
                 Grid.Row="1"
@@ -58,10 +58,10 @@
                                         </Border.Background>
                                     </Border>
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Medium" Foreground="{StaticResource TextColor}" Margin="0,0,0,5"/>
-                                        <TextBlock Text="{Binding Author}" FontSize="12" FontWeight="Regular" Foreground="{StaticResource TextColorSecodary}"/>
+                                        <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Medium" Foreground="{StaticResource TextColor_Primary}" Margin="0,0,0,5"/>
+                                        <TextBlock Text="{Binding Author}" FontSize="12" FontWeight="Regular" Foreground="{StaticResource TextColor_Secondary}"/>
                                     </StackPanel>
-                                    <TextBlock Text="{Binding TagsDisplay}" FontSize="12" FontWeight="Regular" Foreground="{StaticResource TextColorSecodary}" Grid.Column="2" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding TagsDisplay}" FontSize="12" FontWeight="Regular" Foreground="{StaticResource TextColor_Secondary}" Grid.Column="2" VerticalAlignment="Center"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

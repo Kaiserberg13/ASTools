@@ -7,7 +7,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Themes/Colors.xaml" />
+                <ResourceDictionary Source="/Themes/Typography.xaml" />
+                <ResourceDictionary Source="/Themes/TextBox.xaml" />
                 <ResourceDictionary Source="/Themes/Buttons.xaml" />
+                <ResourceDictionary Source="/Themes/ConboBox.xaml" />
                 <ResourceDictionary Source="/Themes/TabItem.xaml" />
                 <ResourceDictionary Source="/Themes/TabControl.xaml" />
                 <ResourceDictionary Source="/Themes/Icons.xaml" />

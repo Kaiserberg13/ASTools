@@ -179,4 +179,16 @@
   <data name="DialogMessageCloseWithoutSaivingTitle" xml:space="preserve">
     <value>Confirmation</value>
   </data>
+  <data name="ToolPageAboutTitle" xml:space="preserve">
+    <value>About</value>
+    <comment>Title in tab bar in tool page</comment>
+  </data>
+  <data name="ToolPageDocumentationTitle" xml:space="preserve">
+    <value>Documantation</value>
+    <comment>Title for tab bar in tool page</comment>
+  </data>
+  <data name="ButtonToolLaunch" xml:space="preserve">
+    <value>Launch</value>
+    <comment>Button for launch tool</comment>
+  </data>
 </root>

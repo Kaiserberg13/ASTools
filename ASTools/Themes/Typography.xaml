@@ -1,0 +1,218 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:md="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf">
+    <!--#region Font Famaly property-->
+    <FontFamily x:Key="FontRegular">Segoe UI</FontFamily>
+    <FontFamily x:Key="FontSemibold">Segoe UI Semibold</FontFamily>
+    <FontFamily x:Key="FontBlack">Segoe UI Black</FontFamily>
+    <FontFamily x:Key="FontCode">Cascadia Code</FontFamily>
+    <!--#endregion-->
+    
+    <!--#region Font Size Property-->
+    <sys:Double x:Key="FontSize_Caption">12</sys:Double>
+    <sys:Double x:Key="FontSize_Body">14</sys:Double>
+    <sys:Double x:Key="FontSize_Subtitle">20</sys:Double>
+    <sys:Double x:Key="FontSize_Title">28</sys:Double>
+    <sys:Double x:Key="FontSize_TitleLarge">40</sys:Double>
+    <sys:Double x:Key="FontSize_Display">68</sys:Double>
+    <!--#endregion-->
+    
+    <!--#region TextBlok Style-->
+    <Style TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Body}" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="TextBlok_Caption">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Caption}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="TextBlok_Body">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Body}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="TextBlok_BodyStrong">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Body}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="TextBlok_Subtitle">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Subtitle}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="TextBlok_Title">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Title}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="TextBlok_TitleLarge">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_TitleLarge}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="TextBlok_Display">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Display}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Label Style-->
+    <Style TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Body}" />
+    </Style>
+    <Style TargetType="Label" x:Key="Label_Caption">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Caption}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="Label" x:Key="Label_Body">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Body}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="Label" x:Key="Label_BodyStrong">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Body}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="Label" x:Key="Label_Subtitle">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Subtitle}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="Label" x:Key="Label_Title">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Title}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="Label" x:Key="Label_TitleLarge">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_TitleLarge}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <Style TargetType="Label" x:Key="Label_Display">
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Display}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+    </Style>
+    <!--#endregion-->
+    
+    <!--#region Document Font Size-->
+    <sys:Double x:Key="Document_h1">40</sys:Double>
+    <sys:Double x:Key="Document_h2">36</sys:Double>
+    <sys:Double x:Key="Document_h3">32</sys:Double>
+    <sys:Double x:Key="Document_h4">28</sys:Double>
+    <sys:Double x:Key="Document_h5">24</sys:Double>
+    <sys:Double x:Key="Document_h6">20</sys:Double>
+    <sys:Double x:Key="Document_subtitle">16</sys:Double>
+    <sys:Double x:Key="Document_text">14</sys:Double>
+    <sys:Double x:Key="Document_description">12</sys:Double>
+    <!--#endregion-->
+    
+    <!--#region Markdown Document-->
+    <!-- Base text -->
+    <Style TargetType="{x:Type FlowDocument}" x:Key="{x:Static md:Styles.DocumentStyleKey}">
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource Document_text}" />
+        <Setter Property="TextAlignment" Value="Left" />
+    </Style>
+    
+    <!-- Headers -->
+    <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static md:Styles.Heading1StyleKey}">
+        <Setter Property="FontSize" Value="{StaticResource Document_h1}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Accent_Primary}" />
+    </Style>
+    <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static md:Styles.Heading2StyleKey}">
+        <Setter Property="FontSize" Value="{StaticResource Document_h2}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontBlack}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Accent_Primary}" />
+    </Style>
+    <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static md:Styles.Heading3StyleKey}">
+        <Setter Property="FontSize" Value="{StaticResource Document_h3}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Accent_Primary}" />
+    </Style>
+    <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static md:Styles.Heading4StyleKey}">
+        <Setter Property="FontSize" Value="{StaticResource Document_h4}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Accent_Primary}" />
+    </Style>
+    <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static md:Styles.Heading5StyleKey}">
+        <Setter Property="FontSize" Value="{StaticResource Document_h5}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Accent_Primary}" />
+    </Style>
+    <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static md:Styles.Heading6StyleKey}">
+        <Setter Property="FontSize" Value="{StaticResource Document_h6}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Accent_Primary}" />
+    </Style>
+
+    <!-- Code -->
+    <Style TargetType="{x:Type Run}" x:Key="{x:Static md:Styles.CodeStyleKey}">
+        <Setter Property="FontFamily" Value="{StaticResource FontCode}" />
+        <Setter Property="Background" Value="#202020" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_OnAccent_Primary}" />
+    </Style>
+    <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static md:Styles.CodeBlockStyleKey}">
+        <Setter Property="FontFamily" Value="{StaticResource FontCode}"/>
+        <Setter Property="Background" Value="#202020"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor_OnAccent_Primary}" />
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="BorderBrush" Value="#2A2A2A" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    
+    <!-- Quotes -->
+    <Style TargetType="{x:Type Section}" x:Key="{x:Static md:Styles.QuoteBlockStyleKey}">
+        <Setter Property="BorderBrush" Value="{StaticResource OutlineColor_Default}" />
+        <Setter Property="BorderThickness" Value="2,0,0,0" />
+        <Setter Property="Padding" Value="5,0,0,0" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Secondary}" />
+    </Style>
+    
+    <!-- List -->
+    <Style TargetType="{x:Type List}">
+        <Setter Property="Margin" Value="20,5,0,5" />
+    </Style>
+    <Style TargetType="{x:Type ListItem}">
+        <Setter Property="Margin" Value="0,2,0,2" />
+    </Style>
+    <Style TargetType="{x:Type CheckBox}" x:Key="{x:Static md:Styles.TaskListStyleKey}">
+        <Setter Property="Margin" Value="0,2,0,2" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Accent_Primary}" />
+    </Style>
+
+    <!-- Table -->
+    <Style TargetType="{x:Type Table}" x:Key="{x:Static md:Styles.TableStyleKey}">
+        <Setter Property="BorderBrush" Value="{StaticResource OutlineColor_Default}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style TargetType="{x:Type TableRow}" x:Key="{x:Static md:Styles.TableHeaderStyleKey}">
+        <Setter Property="FontFamily" Value="{StaticResource FontSemibold}" />
+    </Style>
+    <Style TargetType="{x:Type TableCell}" x:Key="{x:Static md:Styles.TableCellStyleKey}">
+        <Setter Property="Background" Value="{StaticResource ItemColor_Default}" />
+        <Setter Property="BorderBrush" Value="{StaticResource OutlineColor_Default}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <!-- Separator -->
+    <Style TargetType="{x:Type Line}" x:Key="{x:Static md:Styles.ThematicBreakStyleKey}">
+        <Setter Property="Stretch" Value="Fill" />
+        <Setter Property="Stroke" Value="{StaticResource OutlineColor_Default}" />
+    </Style>
+
+    <!-- Hyperlink -->
+    <Style TargetType="{x:Type Hyperlink}" x:Key="{x:Static md:Styles.HyperlinkStyleKey}">
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Accent_Primary}" />
+        <Setter Property="TextDecorations" Value="Underline" />
+    </Style>
+
+    <!-- Text styles -->
+
+    <!--#endregion-->
+</ResourceDictionary>

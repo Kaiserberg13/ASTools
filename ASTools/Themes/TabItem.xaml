@@ -11,22 +11,53 @@
                             Background="Transparent" 
                             Padding="16, 0"
                             Height="30"
-                            BorderBrush="{StaticResource OutlineColor}"
+                            BorderBrush="{StaticResource OutlineColor_Default}"
                             BorderThickness="1"
                             Margin="4"
                             >
-                        <TextBlock x:Name="Content" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock x:Name="Content" Foreground="{StaticResource TextColor_Primary}" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <ContentPresenter ContentSource="Header"/>
                         </TextBlock>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="TabBorder" Property="Background" Value="{StaticResource HoverColor}"/>
+                            <Setter TargetName="TabBorder" Property="Background" Value="{StaticResource ItemColor_Hover}"/>
+                            <Setter TargetName="TabBorder" Property="BorderBrush" Value="{StaticResource OutlineColor_Hover}"/>
+                            <Setter TargetName="Content" Property="Foreground" Value="{StaticResource TextColor_Secondary}"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="TabBorder" Property="Background" Value="{StaticResource SelectedColor}"/>
-                            <Setter TargetName="TabBorder" Property="BorderBrush" Value="{StaticResource AcentColor}"/>
-                            <Setter TargetName="Content" Property="Foreground" Value="{StaticResource AcentColor}"/>
+                            <Setter TargetName="TabBorder" Property="Background" Value="{StaticResource ItemColor_Pressed}"/>
+                            <Setter TargetName="TabBorder" Property="BorderBrush" Value="{StaticResource AccentColor_Default}"/>
+                            <Setter TargetName="Content" Property="Foreground" Value="{StaticResource TextColor_Accent_Primary}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type TabItem}" x:Key="ToolInfoItem">
+        <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Border x:Name="TabBorder"
+                            BorderThickness="0,0,0,2"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            Padding="8, 4"
+                            Height="30">
+                        <ContentPresenter ContentSource="Header" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="TabBorder" Property="Background" Value="{StaticResource ItemColor_Hover}"/>
+                            <Setter TargetName="TabBorder" Property="BorderBrush" Value="{StaticResource OutlineColor_Hover}"/>
+                            <Setter Property="Foreground" Value="{StaticResource TextColor_Secondary}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="TabBorder" Property="Background" Value="Transparent"/>
+                            <Setter TargetName="TabBorder" Property="BorderBrush" Value="{StaticResource AccentColor_Default}"/>
+                            <Setter Property="Foreground" Value="{StaticResource TextColor_Accent_Primary}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

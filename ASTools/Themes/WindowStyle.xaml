@@ -2,13 +2,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ASTools.View"
                     >
+
     <Style TargetType="{x:Type local:MainWindow}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
-                    <Border Background="{StaticResource PrimaryColor}"
+                    <Border 
+                        Background="{StaticResource BackgroundColor_Default}"
                         CornerRadius="{Binding WindowCornerRadius}"
-                        BorderBrush="{StaticResource OutlineColor}"
+                        BorderBrush="{StaticResource OutlineColor_Presed}"
                         BorderThickness="{Binding ResizeBorderThickness}"
                         Padding="{Binding ResizeBorderThickness}"
                         Margin="{Binding TaskBarMarginThickness}"
@@ -22,7 +24,7 @@
                             <DockPanel Panel.ZIndex="1">
                                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="16, 12">
                                     <Image Source="/Assets/Logo80x80.png" Width="20" Height="20"/>
-                                    <TextBlock Margin="16,0,5,0" VerticalAlignment="Center" Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <TextBlock Margin="16,0,5,0" VerticalAlignment="Center" Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" Style="{StaticResource TextBlok_BodyStrong}"/>
                                 </StackPanel>
 
                                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
@@ -31,7 +33,7 @@
                                     <Button WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding CloseCommand}" Style="{StaticResource SystemButtonClose}">X</Button>
                                 </StackPanel>
 
-                                <TextBox Height="30" MinWidth="200" MaxWidth="500" WindowChrome.IsHitTestVisibleInChrome="True"/>
+                                <TextBox x:Name="Searcher" Height="30" MinWidth="200" MaxWidth="500" WindowChrome.IsHitTestVisibleInChrome="True" Text="Search"/>
                             </DockPanel>
 
                             <ContentPresenter
@@ -51,9 +53,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
-                    <Border Background="{StaticResource PrimaryColor}"
+                    <Border Background="{StaticResource BackgroundColor_Secondary}"
                     CornerRadius="{Binding WindowCornerRadius}"
-                    BorderBrush="{StaticResource OutlineColor}"
+                    BorderBrush="{StaticResource OutlineColor_Presed}"
                     BorderThickness="{Binding ResizeBorderThickness}"
                     Padding="{Binding ResizeBorderThickness}"
                     Margin="{Binding TaskBarMarginThickness}"
@@ -67,7 +69,7 @@
                             <DockPanel Panel.ZIndex="1">
                                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="16, 12">
                                     <Image Source="/Assets/Logo80x80.png" Width="20" Height="20"/>
-                                    <TextBlock Margin="16,0,5,0" VerticalAlignment="Center" Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <TextBlock Margin="16,0,5,0" VerticalAlignment="Center" Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" Style="{StaticResource TextBlok_BodyStrong}"/>
                                 </StackPanel>
 
                                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
@@ -94,9 +96,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
-                    <Border Background="{StaticResource PrimaryColor}"
+                    <Border Background="{StaticResource BackgroundColor_Secondary}"
                 CornerRadius="{Binding WindowCornerRadius}"
-                BorderBrush="{StaticResource OutlineColor}"
+                BorderBrush="{StaticResource OutlineColor_Presed}"
                 BorderThickness="{Binding ResizeBorderThickness}"
                 Padding="{Binding ResizeBorderThickness}"
                 Margin="{Binding TaskBarMarginThickness}"

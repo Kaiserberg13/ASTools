@@ -79,6 +79,15 @@ namespace ASTools.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Launch.
+        /// </summary>
+        public static string ButtonToolLaunch {
+            get {
+                return ResourceManager.GetString("ButtonToolLaunch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на The changes are not saved. Close the window?.
         /// </summary>
         public static string DialogMessageCloseWithoutSaivingText {
@@ -201,6 +210,24 @@ namespace ASTools.Lang {
         public static string TitleSettins {
             get {
                 return ResourceManager.GetString("TitleSettins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на About.
+        /// </summary>
+        public static string ToolPageAboutTitle {
+            get {
+                return ResourceManager.GetString("ToolPageAboutTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Documantation.
+        /// </summary>
+        public static string ToolPageDocumentationTitle {
+            get {
+                return ResourceManager.GetString("ToolPageDocumentationTitle", resourceCulture);
             }
         }
     }

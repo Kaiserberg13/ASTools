@@ -165,4 +165,13 @@
   <data name="DialogMessageCloseWithoutSaivingTitle" xml:space="preserve">
     <value>Подтверждение</value>
   </data>
+  <data name="ToolPageAboutTitle" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="ToolPageDocumentationTitle" xml:space="preserve">
+    <value>Документация</value>
+  </data>
+  <data name="ButtonToolLaunch" xml:space="preserve">
+    <value>Запустить</value>
+  </data>
 </root>
