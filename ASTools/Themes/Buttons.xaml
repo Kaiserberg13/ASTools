@@ -63,7 +63,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style TargetType="{x:Type Button}" x:Key="DefaultBtn">
+    <Style TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}"/>
         <Setter Property="Template">
             <Setter.Value>

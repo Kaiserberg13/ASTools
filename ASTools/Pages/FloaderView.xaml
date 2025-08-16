@@ -19,7 +19,7 @@
                 <RadioButton GroupName="View" Content="строка"/>
             </StackPanel>
             <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[FolderButtonDelete]}" Visibility="{Binding IsDefault}" Style="{StaticResource CancelBtn}" VerticalAlignment="Center" DockPanel.Dock="Right" Margin="5,0"/>
-            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[FolderButtonEdit]}" Style="{StaticResource DefaultBtn}" VerticalAlignment="Center" DockPanel.Dock="Right" Margin="5,0"/>
+            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[FolderButtonEdit]}" VerticalAlignment="Center" DockPanel.Dock="Right" Margin="5,0"/>
             <TextBlock Text="{Binding Title}" Style="{StaticResource TextBlok_Title}"/>
         </DockPanel>
         <TabControl Style="{StaticResource FloaderControl}" 

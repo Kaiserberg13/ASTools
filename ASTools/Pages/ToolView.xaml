@@ -22,8 +22,8 @@
             </Border>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="0,0,10,0">
                 <Button Style="{StaticResource CancelBtn}" VerticalAlignment="Center" Margin="0,0,5,0">Удалить</Button>
-                <Button Style="{StaticResource DefaultBtn}" VerticalAlignment="Center" Margin="0,0,5,0">Изменить</Button>
-                <Button Style="{StaticResource AccentBtn}" VerticalAlignment="Center">Запустить</Button>
+                <Button VerticalAlignment="Center" Margin="0,0,5,0">Изменить</Button>
+                <Button Style="{StaticResource AccentBtn}" Command="{Binding RunToolCommand}" VerticalAlignment="Center">Запустить</Button>
             </StackPanel>
             <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center" Margin="10,0,0,0">
                 <TextBlock Text="{Binding Tool.Name}" Style="{StaticResource TextBlok_Subtitle}"/>

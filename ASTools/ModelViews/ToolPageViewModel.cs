@@ -28,5 +28,12 @@ namespace ASTools.ModelViews
         {
             WeakReferenceMessenger.Default.Send(new BackToFolderMassege(true));
         }
+
+        [RelayCommand]
+        private void RunTool()
+        {
+            var toolWindow = new View.ToolWindow(Tool);
+            toolWindow.Show();
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace ASTools.Models
         public string[] Tags { get { return _tags; } set { _tags = value; OnPropertyChanged("Type"); } }
         public string TagsDisplay { get { return _tagsDisplay; } set { _tagsDisplay = value; OnPropertyChanged("TagsDisplay"); } }
         public ImageSource Banner { get { return _banner; } set { _banner = value; OnPropertyChanged("Banner"); } }
-        //private string CodePath { get { return _codePath; } set { _codePath = value; OnPropertyChanged("CodePath"); } }
+        public string CodePath { get { return _codePath; } private set { _codePath = value; OnPropertyChanged("CodePath"); } }
         public string MdReadme
         {
             get { return _mdReadme; }
@@ -62,8 +62,7 @@ namespace ASTools.Models
                     tags = ["undefiend"]
                 };
 
-                if(File.Exists(Path.GetFullPath(Path.Combine(path, tool_name + ".exe"))))
-                    _codePath = Path.GetFullPath(Path.Combine(path, tool_name + ".exe"));
+                CodePath = Path.GetFullPath(path);
 
                 if (File.Exists(Path.GetFullPath(Path.Combine(path, "info.json"))))
                     json = JsonSerializer.Deserialize<ComponentInfo>(File.ReadAllText(Path.GetFullPath(Path.Combine(path, "info.json"))));
