@@ -125,11 +125,11 @@
     <value>Add Folder</value>
     <comment>Title for "Add Folder" button</comment>
   </data>
-  <data name="FolderButtonEdit" xml:space="preserve">
+  <data name="ButtonEdit" xml:space="preserve">
     <value>Edit</value>
     <comment>Title for "Edit" button in folder</comment>
   </data>
-  <data name="FolderButtonDelete" xml:space="preserve">
+  <data name="ButtonDelete" xml:space="preserve">
     <value>Delete</value>
     <comment>Title for "Delite" button in folder</comment>
   </data>
@@ -141,15 +141,15 @@
     <value>Settings</value>
     <comment>Settings window and button title</comment>
   </data>
-  <data name="SettingsButtonApply" xml:space="preserve">
+  <data name="ButtonApply" xml:space="preserve">
     <value>Apply</value>
     <comment>Title for "Apply" button in settings window</comment>
   </data>
-  <data name="SettingsButtonCancel" xml:space="preserve">
+  <data name="ButtonCancel" xml:space="preserve">
     <value>Cancel</value>
     <comment>Title for "Cancel" button in settings window</comment>
   </data>
-  <data name="SettingsButtonSupportUs" xml:space="preserve">
+  <data name="ButtonSupportUs" xml:space="preserve">
     <value>Support us</value>
     <comment>Title for "Support Us" button in settings window</comment>
   </data>
@@ -190,5 +190,8 @@
   <data name="ButtonToolLaunch" xml:space="preserve">
     <value>Launch</value>
     <comment>Button for launch tool</comment>
+  </data>
+  <data name="ButtonBack" xml:space="preserve">
+    <value>Back</value>
   </data>
 </root>

@@ -79,6 +79,60 @@ namespace ASTools.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Apply.
+        /// </summary>
+        public static string ButtonApply {
+            get {
+                return ResourceManager.GetString("ButtonApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Back.
+        /// </summary>
+        public static string ButtonBack {
+            get {
+                return ResourceManager.GetString("ButtonBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Cancel.
+        /// </summary>
+        public static string ButtonCancel {
+            get {
+                return ResourceManager.GetString("ButtonCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete.
+        /// </summary>
+        public static string ButtonDelete {
+            get {
+                return ResourceManager.GetString("ButtonDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Edit.
+        /// </summary>
+        public static string ButtonEdit {
+            get {
+                return ResourceManager.GetString("ButtonEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Support us.
+        /// </summary>
+        public static string ButtonSupportUs {
+            get {
+                return ResourceManager.GetString("ButtonSupportUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Launch.
         /// </summary>
         public static string ButtonToolLaunch {
@@ -106,56 +160,11 @@ namespace ASTools.Lang {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Delete.
-        /// </summary>
-        public static string FolderButtonDelete {
-            get {
-                return ResourceManager.GetString("FolderButtonDelete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Edit.
-        /// </summary>
-        public static string FolderButtonEdit {
-            get {
-                return ResourceManager.GetString("FolderButtonEdit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Loading data....
         /// </summary>
         public static string LoadScreenText {
             get {
                 return ResourceManager.GetString("LoadScreenText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Apply.
-        /// </summary>
-        public static string SettingsButtonApply {
-            get {
-                return ResourceManager.GetString("SettingsButtonApply", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Cancel.
-        /// </summary>
-        public static string SettingsButtonCancel {
-            get {
-                return ResourceManager.GetString("SettingsButtonCancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Support us.
-        /// </summary>
-        public static string SettingsButtonSupportUs {
-            get {
-                return ResourceManager.GetString("SettingsButtonSupportUs", resourceCulture);
             }
         }
         

@@ -64,9 +64,9 @@
             </Grid>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,5">
-            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[SettingsButtonApply]}" Command="{Binding SaveCommand}" IsEnabled="{Binding IsChanged}" Style="{StaticResource AccentBtn}" Margin="5,0" FontFamily="Segoe UI"/>
-            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[SettingsButtonCancel]}" Command="{Binding CancelCommand}" IsEnabled="{Binding IsNotSaving}" Style="{StaticResource CancelBtn}" Margin="5,0"/>
-            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[SettingsButtonSupportUs]}" Command="{Binding OpenSupportBrowserCommand}" Margin="5,0"/>
+            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[ButtonApply]}" Command="{Binding SaveCommand}" IsEnabled="{Binding IsChanged}" Style="{StaticResource AccentBtn}" Margin="5,0" FontFamily="Segoe UI"/>
+            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[ButtonCancel]}" Command="{Binding CancelCommand}" IsEnabled="{Binding IsNotSaving}" Style="{StaticResource CancelBtn}" Margin="5,0"/>
+            <Button Content="{Binding Source={x:Static lcliz:LocalizationProvider.Instance}, Path=[ButtonSupportUs]}" Command="{Binding OpenSupportBrowserCommand}" Margin="5,0"/>
         </StackPanel>
     </Grid>
 </Window>

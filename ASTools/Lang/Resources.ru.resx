@@ -123,10 +123,10 @@
   <data name="ButtonAddFolder" xml:space="preserve">
     <value>Создать папку</value>
   </data>
-  <data name="FolderButtonEdit" xml:space="preserve">
+  <data name="ButtonEdit" xml:space="preserve">
     <value>Изменить</value>
   </data>
-  <data name="FolderButtonDelete" xml:space="preserve">
+  <data name="ButtonDelete" xml:space="preserve">
     <value>Удалить</value>
   </data>
   <data name="TitleHome" xml:space="preserve">
@@ -135,13 +135,13 @@
   <data name="TitleSettins" xml:space="preserve">
     <value>Настройки</value>
   </data>
-  <data name="SettingsButtonApply" xml:space="preserve">
+  <data name="ButtonApply" xml:space="preserve">
     <value>Применить</value>
   </data>
-  <data name="SettingsButtonCancel" xml:space="preserve">
+  <data name="ButtonCancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
-  <data name="SettingsButtonSupportUs" xml:space="preserve">
+  <data name="ButtonSupportUs" xml:space="preserve">
     <value>Поддержать нас</value>
   </data>
   <data name="SettingsSettingTitleToolsDir" xml:space="preserve">
@@ -173,5 +173,8 @@
   </data>
   <data name="ButtonToolLaunch" xml:space="preserve">
     <value>Запустить</value>
+  </data>
+  <data name="ButtonBack" xml:space="preserve">
+    <value>Назад</value>
   </data>
 </root>
