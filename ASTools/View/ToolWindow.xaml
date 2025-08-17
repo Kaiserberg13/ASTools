@@ -44,36 +44,37 @@
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Border x:Name="Border"
-                                                CornerRadius="4"
-                                                BorderThickness="0,0,0,1"
-                                                BorderBrush="{DynamicResource OutlineColor_Down_Default}">
-                                            <Border x:Name="BorderDown"
                                                     CornerRadius="4"
                                                     Padding="10, 5"
                                                     Background="{Binding IsActive, Converter={StaticResource BoolToBackground}, FallbackValue={StaticResource ItemColor_Default}}"
-                                                    BorderThickness="1,1,1,0"
+                                                    BorderThickness="1"
                                                     BorderBrush="{DynamicResource OutlineColor_Default}">
-                                                <StackPanel HorizontalAlignment="Center">
-                                                    <TextBlock Text="{Binding Icon, FallbackValue='🔘'}" 
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="Black"
+                                                                  Opacity="0.5"
+                                                                  ShadowDepth="1"
+                                                                  Direction="270"
+                                                                  BlurRadius="0"/>
+                                            </Border.Effect>
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding Icon, FallbackValue='🔘'}" 
                                                                FontSize="18"
                                                                Margin="0,6,0,0"
                                                                HorizontalAlignment="Center"
                                                                Foreground="{Binding IsActive, Converter={StaticResource BoolToForeground}, FallbackValue={StaticResource TextColor_Primary}}" />
-                                                    <TextBlock Text="{Binding Text, FallbackValue='Нет текста'}"
+                                                <TextBlock Text="{Binding Text, FallbackValue='Нет текста'}"
                                                                Style="{DynamicResource TextBlok_Caption}"
                                                                TextWrapping="Wrap"
                                                                Margin="0,4,0,0"
                                                                TextAlignment="Center"
                                                                HorizontalAlignment="Center"
                                                                Foreground="{Binding IsActive, Converter={StaticResource BoolToForeground}, FallbackValue={StaticResource TextColor_Primary}}" />
-                                                </StackPanel>
-                                            </Border>
+                                            </StackPanel>
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <DataTrigger Binding="{Binding IsActive}" Value="True">
                                                 <Setter TargetName="Border" Property="Background" Value="{DynamicResource AccentColor_Default}" />
                                                 <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource AccentColor_Presed}" />
-                                                <Setter TargetName="BorderDown" Property="BorderBrush" Value="{DynamicResource AccentColor_Hover}" />
                                             </DataTrigger>
                                             <Trigger Property="IsPressed" Value="True">
                                                 <Setter TargetName="Border" Property="Background" Value="{DynamicResource AccentColor_Presed}" />

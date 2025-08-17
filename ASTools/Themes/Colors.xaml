@@ -3,30 +3,35 @@
                     xmlns:local="clr-namespace:ASTools">
     <SolidColorBrush x:Key="BackgroundColor_Default" Color="#F4F4F4"/>
     <SolidColorBrush x:Key="BackgroundColor_Secondary" Color="#FBFBFB"/>
+    
     <SolidColorBrush x:Key="TextColor_Primary" Color="#1A1A1A"/>
     <SolidColorBrush x:Key="TextColor_Secondary" Color="#5C5C5C"/>
     <SolidColorBrush x:Key="TextColor_Tertiary" Color="#868686"/>
     <SolidColorBrush x:Key="TextColor_Disabled" Color="#9B9B9B"/>
+    
     <SolidColorBrush x:Key="TextColor_OnAccent_Primary" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="TextColor_OnAccent_Secondary" Color="#FBFBFB"/>
     <SolidColorBrush x:Key="TextColor_OnAccent_Tertiary" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="TextColor_OnAccent_Disabled" Color="#FFFFFF"/>
+    
     <SolidColorBrush x:Key="TextColor_Accent_Primary" Color="#003E92"/>
     <SolidColorBrush x:Key="TextColor_Accent_Secondary" Color="#001A68"/>
     <SolidColorBrush x:Key="TextColor_Accent_Tertiary" Color="#0067C0"/>
+    
     <SolidColorBrush x:Key="ItemColor_Default" Color="#FCFCFC"/>
     <SolidColorBrush x:Key="ItemColor_Hover" Color="#F3F3F3"/>
     <SolidColorBrush x:Key="ItemColor_Pressed" Color="#EBEBEB"/>
     <SolidColorBrush x:Key="ItemColor_Disabled" Color="#BFBFBF"/>
+
     <SolidColorBrush x:Key="OutlineColor_Default" Color="#E5E5E5"/>
-    <SolidColorBrush x:Key="OutlineColor_Down_Default" Color="#CCCCCC"/>
     <SolidColorBrush x:Key="OutlineColor_Hover" Color="#E5E5E5"/>
-    <SolidColorBrush x:Key="OutlineColor_Down_Hover" Color="#CCCCCC"/>
     <SolidColorBrush x:Key="OutlineColor_Presed" Color="#E5E5E5"/>
     <SolidColorBrush x:Key="OutlineColor_Disabled" Color="#E5E5E5"/>
+    
     <SolidColorBrush x:Key="RedColor_Default" Color="#C42B1C"/>
     <SolidColorBrush x:Key="RedColor_Hover" Color="#BC2517"/>
     <SolidColorBrush x:Key="RedColor_Presed" Color="#AF1809"/>
+    
     <SolidColorBrush x:Key="AccentColor_Default" Color="#0067C0"/>
     <SolidColorBrush x:Key="AccentColor_Hover" Color="#1975C5"/>
     <SolidColorBrush x:Key="AccentColor_Presed" Color="#3183CA"/>

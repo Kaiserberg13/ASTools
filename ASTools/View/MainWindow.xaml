@@ -52,8 +52,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <Image Source="{Binding Icon}" Stretch="Fill" Height="24" Width="24" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{Binding Title}" HorizontalAlignment="Center" Foreground="{StaticResource TextColor_Primary}" TextAlignment="Center" TextWrapping="Wrap"/>
+                        <Path Data="{Binding Icon}" Stretch="Uniform" Height="24" Width="24" HorizontalAlignment="Center" Fill="{DynamicResource TextColor_Tertiary}"/>
+                        <TextBlock Text="{Binding Title}" HorizontalAlignment="Center" Foreground="{StaticResource TextColor_Tertiary}" TextAlignment="Center" TextWrapping="Wrap"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -198,7 +198,7 @@ namespace ASTools.ModelViews
                         new FloaderModel
                         (
                             new ObservableCollection<ComponentModel>(toolsModels),
-                            "home.png",
+                            "Home",
                             newTitle,
                             true
                         )

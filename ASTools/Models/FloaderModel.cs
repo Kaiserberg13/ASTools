@@ -15,9 +15,10 @@ namespace ASTools.Models
     public class FloaderModel : INotifyPropertyChanged
     {
         private string _title = "";
-        private ImageSource _icon;
+        private Geometry _icon;
         private FloaderPageViewModel _pageViewModel;
         private bool _isDefault = false;
+        private string _iconKey;
 
         public string Title
         {
@@ -28,7 +29,7 @@ namespace ASTools.Models
                 OnPropertyChanged("Title");
             }
         }
-        public ImageSource Icon
+        public Geometry Icon
         {
             get => _icon;
             set
@@ -55,13 +56,23 @@ namespace ASTools.Models
                 OnPropertyChanged("IsDefault");
             }
         }
+        public string IconKey
+        {
+            get => _iconKey;
+            set
+            {
+                _iconKey = value;
+                OnPropertyChanged("IconKey");
+            }
+        }
 
         public FloaderModel(ObservableCollection<ComponentModel> floaderTools, string floaderIcon, string floaderTitle) 
         {
             try
             {
                 Title = floaderTitle;
-                Icon = new BitmapImage(new Uri($"pack://application:,,,/Assets/Icons/{floaderIcon}"));
+                IconKey = floaderIcon;
+                Icon = (Geometry)Application.Current.FindResource(floaderIcon);
                 PageViewModel = new FloaderPageViewModel(_title, floaderTools);
             }
             catch (Exception ex)
@@ -74,7 +85,8 @@ namespace ASTools.Models
             try
             {
                 Title = floaderTitle;
-                Icon = new BitmapImage(new Uri($"pack://application:,,,/Assets/Icons/{floaderIcon}"));
+                IconKey = floaderIcon;
+                Icon = (Geometry)Application.Current.FindResource(floaderIcon);
                 PageViewModel = new FloaderPageViewModel(_title, floaderTools, isItDefault);
                 IsDefault = isItDefault;
             } catch (Exception ex)

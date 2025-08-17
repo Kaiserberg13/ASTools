@@ -1,7 +1,7 @@
 [
   {
     "Name": "Home",
-    "Icon": "Home.png",
+    "Icon": "Home",
     "Tools": [
       "Random_Number_Generator"
     ]

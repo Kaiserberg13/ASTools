@@ -6,14 +6,21 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border x:Name="BorderDown"
-                            BorderBrush="{StaticResource OutlineColor_Down_Default}"
+                            BorderBrush="Transparent"
                             CornerRadius="4"
-                            BorderThickness="0,0,0,1">
+                            BorderThickness="0,0,0,2">
                         <Border x:Name="Border"
                                 BorderBrush="{StaticResource OutlineColor_Default}"
                                 Background="{StaticResource ItemColor_Default}"
                                 CornerRadius="4"
-                                BorderThickness="1,1,1,0">
+                                BorderThickness="1">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black"
+                                                  Opacity="0.5"
+                                                  ShadowDepth="1"
+                                                  Direction="270"
+                                                  BlurRadius="0"/>
+                            </Border.Effect>
                             <ScrollViewer x:Name="PART_ContentHost"
                                           Margin="10,5"
                                           VerticalAlignment="Center"
@@ -26,6 +33,15 @@
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="BorderDown" Property="BorderBrush" Value="{StaticResource AccentColor_Default}" />
+                            <Setter TargetName="Border" Property="Effect" >
+                                <Setter.Value>
+                                    <DropShadowEffect Color="Black"
+                                                      Opacity="0"
+                                                      ShadowDepth="1"
+                                                      Direction="270"
+                                                      BlurRadius="0"/>
+                                </Setter.Value>
+                            </Setter>
                             <Setter TargetName="Border" Property="Background" Value="{StaticResource ItemColor_Default}" />
                             <Setter Property="Foreground" Value="{StaticResource TextColor_Primary}" />
                         </Trigger>
