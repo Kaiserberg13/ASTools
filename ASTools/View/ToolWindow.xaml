@@ -8,9 +8,10 @@
         xmlns:vm="clr-namespace:ASTools.ModelViews"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="ToolWindow" Height="520" Width="380">
+        Title="ToolWindow" Height="520" Width="400">
     <Window.Resources>
-        <converters:BoolToBrushConverter x:Key="BoolToForeground" />
+        <converters:BoolToForegroundBrushConverter x:Key="BoolToForeground" />
+        <converters:BoolToBackgroundBrushConverter x:Key="BoolToBackground" />
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
         <converters:FilePathToPaddingConverter x:Key="FileToPadding" />
         <converters:NullOrEmptyToBooleanConverter x:Key="NullOrEmptyToBooleanConverter" />
@@ -38,47 +39,47 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Button Width="98"
-                            Height="48"
-                            Command="{Binding ToggleCommand}"
-                            IsEnabled="{Binding IsEnabled}">
+                                Command="{Binding ToggleCommand}"
+                                IsEnabled="{Binding IsEnabled}">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Border x:Name="Border"
-                                        CornerRadius="4"
-                                        BorderThickness="0,0,0,1"
-                                        BorderBrush="{StaticResource OutlineColor_Down_Default}">
+                                                CornerRadius="4"
+                                                BorderThickness="0,0,0,1"
+                                                BorderBrush="{DynamicResource OutlineColor_Down_Default}">
                                             <Border x:Name="BorderDown"
-                                            CornerRadius="4"
-                                            Padding="10, 5"
-                                            Background="{StaticResource ItemColor_Default}"
-                                            BorderThickness="1,1,1,0"
-                                            BorderBrush="{StaticResource OutlineColor_Default}">
+                                                    CornerRadius="4"
+                                                    Padding="10, 5"
+                                                    Background="{Binding IsActive, Converter={StaticResource BoolToBackground}, FallbackValue={StaticResource ItemColor_Default}}"
+                                                    BorderThickness="1,1,1,0"
+                                                    BorderBrush="{DynamicResource OutlineColor_Default}">
                                                 <StackPanel HorizontalAlignment="Center">
                                                     <TextBlock Text="{Binding Icon, FallbackValue='🔘'}" 
-                                                       FontSize="18"
-                                                       Margin="0,6,0,0"
-                                                       HorizontalAlignment="Center"
-                                                       Foreground="{Binding IsActive, Converter={StaticResource BoolToForeground}, FallbackValue={StaticResource TextColor_Primary}}" />
-                                            <TextBlock Text="{Binding Text, FallbackValue='Нет текста'}"
-                                                       FontFamily="Segoe UI Variable"
-                                                       FontSize="12"
-                                                       Margin="0,4,0,0"
-                                                       HorizontalAlignment="Center"
-                                                       Foreground="{Binding IsActive, Converter={StaticResource BoolToForeground}, FallbackValue={StaticResource TextColor_Primary}}" />
-                                        </StackPanel>
-                                    </Border>
-                                </Border>
+                                                               FontSize="18"
+                                                               Margin="0,6,0,0"
+                                                               HorizontalAlignment="Center"
+                                                               Foreground="{Binding IsActive, Converter={StaticResource BoolToForeground}, FallbackValue={StaticResource TextColor_Primary}}" />
+                                                    <TextBlock Text="{Binding Text, FallbackValue='Нет текста'}"
+                                                               Style="{DynamicResource TextBlok_Caption}"
+                                                               TextWrapping="Wrap"
+                                                               Margin="0,4,0,0"
+                                                               TextAlignment="Center"
+                                                               HorizontalAlignment="Center"
+                                                               Foreground="{Binding IsActive, Converter={StaticResource BoolToForeground}, FallbackValue={StaticResource TextColor_Primary}}" />
+                                                </StackPanel>
+                                            </Border>
+                                        </Border>
                                         <ControlTemplate.Triggers>
                                             <DataTrigger Binding="{Binding IsActive}" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="{StaticResource AccentColor_Default}" />
-                                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource AccentColor_Presed}" />
-                                                <Setter TargetName="BorderDown" Property="BorderBrush" Value="{StaticResource AccentColor_Hover}" />
+                                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource AccentColor_Default}" />
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource AccentColor_Presed}" />
+                                                <Setter TargetName="BorderDown" Property="BorderBrush" Value="{DynamicResource AccentColor_Hover}" />
                                             </DataTrigger>
                                             <Trigger Property="IsPressed" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="{StaticResource AccentColor_Presed}" />
+                                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource AccentColor_Presed}" />
                                             </Trigger>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="{StaticResource ItemColor_Hover}" />
+                                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource ItemColor_Hover}" />
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -88,8 +89,8 @@
                                         <Setter Property="Background" Value="Transparent" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsActive}" Value="True">
-                                                <Setter Property="Background" Value="{StaticResource AccentColor_Default}" />
-                                                <Setter Property="BorderBrush" Value="{StaticResource AccentColor_Presed}" />
+                                                <Setter Property="Background" Value="{DynamicResource AccentColor_Default}" />
+                                                <Setter Property="BorderBrush" Value="{DynamicResource AccentColor_Presed}" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -108,7 +109,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0"
                Content="{Binding Placeholder, FallbackValue='Введите текст'}"
-               Foreground="{StaticResource TextColor_Tertiary}"
+               Foreground="{DynamicResource TextColor_Tertiary}"
                FontFamily="Segoe UI Variable"
                FontSize="12"
                Margin="0,0,0,4" />
@@ -119,71 +120,33 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"
-                     FontFamily="Segoe UI Variable"
-                     FontSize="14"
-                     BorderThickness="4"
-                     BorderBrush="{StaticResource OutlineColor_Default}"
-                     Background="{StaticResource ItemColor_Default}"
-                     Padding="{Binding IsFilePath, Converter={StaticResource FileToPadding}}"
-                     IsEnabled="{Binding IsEnabled}">
-                        <TextBox.Style>
-                            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="TextBox">
-                                            <Border x:Name="BorderDown"
-                                            BorderBrush="{StaticResource OutlineColor_Down_Default}"
-                                            CornerRadius="4"
-                                            BorderThickness="0,0,0,1">
-                                                <Border x:Name="Border"
-                                                BorderBrush="{StaticResource OutlineColor_Default}"
-                                                Background="{StaticResource ItemColor_Default}"
-                                                CornerRadius="4"
-                                                BorderThickness="1,1,1,0">
-                                                    <ScrollViewer x:Name="PART_ContentHost"
-                                                          Margin="10,5"
-                                                          VerticalAlignment="Center"
-                                                          Focusable="False"/>
-                                                </Border>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsKeyboardFocused" Value="True">
-                                                    <Setter TargetName="BorderDown" Property="BorderBrush" Value="{StaticResource AccentColor_Default}" />
-                                                </Trigger>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource ItemColor_Hover}" />
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                             FontFamily="Segoe UI Variable"
+                             FontSize="14"
+                             IsEnabled="{Binding IsEnabled}"/>
                     <Button Visibility="{Binding IsFilePath, Converter={StaticResource BoolToVisibility}}"
-                    Width="28"
-                    Height="28"
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,6,0"
-                    Command="{Binding PickCommand}"
-                    Background="Transparent">
+                            Width="28"
+                            Height="28"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="6,0,0,0"
+                            Command="{Binding PickCommand}"
+                            Background="Transparent">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="ButtonBorder"
                                 Background="{TemplateBinding Background}"
                                 CornerRadius="4"
                                 BorderThickness="1"
-                                BorderBrush="{StaticResource OutlineColor_Default}">
+                                BorderBrush="{DynamicResource OutlineColor_Default}">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="ButtonBorder" Property="Background" Value="{StaticResource ItemColor_Hover}" />
+                                        <Setter TargetName="ButtonBorder" Property="Background" Value="{DynamicResource ItemColor_Hover}" />
                                     </Trigger>
                                     <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="ButtonBorder" Property="Background" Value="{StaticResource AccentColor_Presed}" />
+                                        <Setter TargetName="ButtonBorder" Property="Background" Value="{DynamicResource ItemColor_Pressed}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -226,7 +189,7 @@
         </ScrollViewer>
 
         <Button Content="Run Tool"
-                Style="{StaticResource AccentBtn}"
+                Style="{DynamicResource AccentBtn}"
                 HorizontalAlignment="Center" 
                 Grid.Row="1"
                 Margin="10"

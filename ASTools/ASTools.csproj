@@ -17,6 +17,7 @@
       <None Remove="Assets\Sprite sheet to video.png" />
       <None Remove="Assets\States manager.png" />
       <None Remove="Assets\Video to spirte sheet.png" />
+      <None Remove="Settings\Folders.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -46,6 +47,9 @@
       <Resource Include="Assets\Sprite sheet to video.png" />
       <Resource Include="Assets\States manager.png" />
       <Resource Include="Assets\Video to spirte sheet.png" />
+      <EmbeddedResource Include="Settings\Folders.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>

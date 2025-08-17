@@ -8,8 +8,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -33,6 +35,7 @@ namespace ASTools.ModelViews
         #region Private Member
         private FloaderModel _selectedItem;
         private object _currentPageViewModel;
+        Configuration AppConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         #endregion
 
         #region Public Properties
@@ -140,25 +143,38 @@ namespace ASTools.ModelViews
         private async Task LoadData()
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-
-            Dictionary<string, string> config = null;
+            var general = (ASTools.Srttings.General)ConfigurationManager.GetSection("general");
             List<FloaderInfo> allFolders = null;
             Dictionary<string, string> allTools = null;
 
             await Task.Run(() =>
             {
-                config = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.Combine(baseDir, "Data", "Config", "App.settings.json")));
+                
 
-                allTools = Directory.GetDirectories(Path.GetFullPath(config["toolsDir"]))
+                allTools = Directory.GetDirectories(Path.GetFullPath(general.ToolsDir))
                     .Select(dirPath => new DirectoryInfo(dirPath))
                     .Where(dir => dir.Name != "Tamplate")
                     .ToDictionary(
                         dir => dir.Name,
                         dir => dir.FullName
                     );
-                allFolders = JsonSerializer.Deserialize<List<FloaderInfo>>(File.ReadAllText(Path.Combine(baseDir, config["foldersJson"])));
 
-                LocalizationProvider.Instance.CurrentCulture = new CultureInfo(config["Language"]);
+                var assembly = Assembly.GetExecutingAssembly();
+
+                using (Stream stream = assembly.GetManifestResourceStream("ASTools.Settings.Folders.json"))
+                {
+                    if(stream == null)
+                    {
+                        throw new FileNotFoundException("Folders.json not found in resources.");
+                    }
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        string jsonContent = reader.ReadToEnd();
+                        allFolders = JsonSerializer.Deserialize<List<FloaderInfo>>(jsonContent);
+                    }
+                }
+
+                LocalizationProvider.Instance.CurrentCulture = general.Language;
             });
 
             await Application.Current.Dispatcher.InvokeAsync(() =>

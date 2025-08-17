@@ -14,10 +14,10 @@
                                 Background="{StaticResource ItemColor_Default}"
                                 CornerRadius="4"
                                 BorderThickness="1,1,1,0">
-                            <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=OneWay}"
-                                       Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}"
-                                       VerticalAlignment="Center" 
-                                       Margin="10,5"/>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="10,5"
+                                          VerticalAlignment="Center"
+                                          Focusable="False"/>
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>

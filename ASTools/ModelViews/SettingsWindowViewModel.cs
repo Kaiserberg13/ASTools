@@ -1,11 +1,13 @@
 ﻿using ASTools.Lang;
 using ASTools.Messenger;
+using ASTools.Srttings;
 using ASTools.Unit;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -31,9 +33,9 @@ namespace ASTools.ModelViews
     {
         #region private member
         private string _settigsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Config", "App.settings.json");
-        private Dictionary<string, string> _settings;
         private Dictionary<string, string> _changedSettings = new Dictionary<string, string>();
-        private bool isLangChange = false;
+        private General _generalSettings = (General)ConfigurationManager.GetSection("general");
+        private bool _isLangChange = false;
         private bool _isDirChange = false;
         #endregion
 
@@ -47,14 +49,14 @@ namespace ASTools.ModelViews
             set 
             {
                 SetProperty(ref _selectedLang, value);
-                isLangChange = true;
+                _isLangChange = true;
                 IsChanged = true;
-                if (_changedSettings == null || !_changedSettings.TryGetValue("Language", out var Value))
+                if (_changedSettings == null || !_changedSettings.TryGetValue("language", out var Value))
                 {
-                    _changedSettings.Add("Language", value);
+                    _changedSettings.Add("language", value);
                 } else
                 {
-                    _changedSettings["Language"] = value;
+                    _changedSettings["language"] = value;
                 }
             }
         }
@@ -113,7 +115,7 @@ namespace ASTools.ModelViews
                 var fbd = new OpenFolderDialog
                 {
                     Title = folderKey,
-                    InitialDirectory = Path.GetFullPath(_settings[folderKey]),
+                    InitialDirectory = Path.GetFullPath(_generalSettings.GetType().GetProperty(folderKey).ToString()),
                     Multiselect = false
                 };
                 if (fbd.ShowDialog() == true)
@@ -146,54 +148,78 @@ namespace ASTools.ModelViews
             IsChanged = false;
             await Task.Run(() =>
             {
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var section = (General)config.GetSection("general");
+
                 foreach (var setting in _changedSettings)
                 {
-                    if (setting.Key == "Language")
+                    switch (setting.Key)
                     {
-                        var newCulture = new CultureInfo(SelectedLang);
-                        LocalizationProvider.Instance.CurrentCulture = newCulture;
-                    }
-                    else if (setting.Key == "toolsDir" || setting.Key == "guidesDir")
-                    {
-                        var oldPath = Path.GetFullPath(_settings[setting.Key]);
-                        var newPath = Path.GetFullPath(setting.Value);
-
-                        if (Directory.Exists(oldPath))
-                        {
-                            if (!Directory.Exists(newPath))
+                        case "language":
+                            var newCulture = new CultureInfo(setting.Value);
+                            section.Language = newCulture;
+                            LocalizationProvider.Instance.CurrentCulture = newCulture;
+                            _isLangChange = true;
+                            break;
+                        case "toolsDir":
+                            var oldToolsDir = Path.GetFullPath(section.ToolsDir);
+                            var newToolsDir = Path.GetFullPath(setting.Value);
+                            if (Directory.Exists(oldToolsDir))
                             {
-                                Directory.CreateDirectory(newPath);
-                            }
-
-                            foreach (var subDir in Directory.GetDirectories(oldPath))
-                            {
-                                var destDir = Path.Combine(newPath, Path.GetFileName(subDir));
-                                if (Directory.Exists(destDir))
+                                if (!Directory.Exists(newToolsDir))
                                 {
-                                    Directory.Delete(destDir, true);
+                                    Directory.CreateDirectory(newToolsDir);
                                 }
-                                Directory.Move(subDir, destDir);
+
+                                foreach (var subDir in Directory.GetDirectories(oldToolsDir))
+                                {
+                                    var destDir = Path.Combine(newToolsDir, Path.GetFileName(subDir));
+                                    if (Directory.Exists(destDir))
+                                    {
+                                        Directory.Delete(destDir, true);
+                                    }
+                                    Directory.Move(subDir, destDir);
+                                }
                             }
-                        }
+                            section.ToolsDir = setting.Value;
+                            _isDirChange = true;
+                            break;
+                        case "guidesDir":
+                            var oldGuidesDir = Path.GetFullPath(section.GuidesDir);
+                            var newGuidesDir = Path.GetFullPath(setting.Value);
+                            if (Directory.Exists(oldGuidesDir))
+                            {
+                                if (!Directory.Exists(newGuidesDir))
+                                {
+                                    Directory.CreateDirectory(newGuidesDir);
+                                }
+
+                                foreach (var subDir in Directory.GetDirectories(oldGuidesDir))
+                                {
+                                    var destDir = Path.Combine(newGuidesDir, Path.GetFileName(subDir));
+                                    if (Directory.Exists(destDir))
+                                    {
+                                        Directory.Delete(destDir, true);
+                                    }
+                                    Directory.Move(subDir, destDir);
+                                }
+                            }
+                            section.GuidesDir = setting.Value;
+                            _isDirChange = true;
+                            break;
                     }
-                    _settings[setting.Key] = setting.Value;
                 }
+
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("general");
             });
-
-            var jsonOptions = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
-
-            string jsonContent = JsonSerializer.Serialize(_settings, jsonOptions);
-            await File.WriteAllTextAsync(_settigsPath, jsonContent);
 
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                if (isLangChange)
+                if (_isLangChange)
                 {
-                    WeakReferenceMessenger.Default.Send(new SettingsLangChangeMessage(new CultureInfo(_changedSettings["Language"])));
-                    isLangChange = false;
+                    WeakReferenceMessenger.Default.Send(new SettingsLangChangeMessage(new CultureInfo(_changedSettings["language"])));
+                    _isLangChange = false;
                 }
                 if(_isDirChange)
                 {
@@ -230,10 +256,8 @@ namespace ASTools.ModelViews
         #region Constructors
         public SettingsWindowViewModel(Window window) : base(window)
         {
-            _settings = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(_settigsPath));
-
-            ToolsDir = _settings["toolsDir"];
-            GuidesDir = _settings["guidesDir"];
+            ToolsDir = _generalSettings.ToolsDir;
+            GuidesDir = _generalSettings.GuidesDir;
 
             LangItems.Add(new LangOption("Русский", "ru"));
             LangItems.Add(new LangOption("English", "en"));
